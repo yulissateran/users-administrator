@@ -17,19 +17,19 @@ export class AuthService {
 
   fromPromise(
     promise,
-    handleResponse = response => response,
-    handleError = error => error
+    handleResponse,
+    handleError
   ) {
    return new Observable(subscriptor => {
       promise
-        .then(response => subscriptor.next(handleResponse(response)))
-        .catch(error => subscriptor.error(handleError(error)));
+        .then(response => subscriptor.next(handleResponse? handleResponse(response):response ))
+        .catch(error => subscriptor.error(handleError? handleError(error): error));
     });
   }
   register(email: string, pass: string): Observable<string | any> {
     return this.fromPromise(
       this._afAuth.auth.createUserWithEmailAndPassword(email, pass),
-      (response)=>response,
+      null,
      this.handleErrorRegister)
   }
   login(email: string, pass: string) {
