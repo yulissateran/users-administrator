@@ -1,15 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+
+import { AngularFireAuth } from "@angular/fire/auth";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AuthService } from "../../services/auth.service";
+import { CREATE_USERS_ROUTE } from "src/app/constants";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  public formLogin: FormGroup;
+  public errorAuth: string | undefined;
+  public sent: boolean = false;
+  constructor(
+    public _angularFire: AngularFireAuth,
+    private _router: Router,
+    private _fb: FormBuilder,
+    private _authService: AuthService
+  ) {
+    this.formLogin = this._fb.group({
+      email: [null, Validators.required],
+      password: [null, Validators.required]
+    });
   }
 
+  login() {
+    event.preventDefault();
+    this.sent = true;
+    if (this.formLogin.valid) {
+      this.errorAuth = undefined;
+      const { email, password } = this.formLogin.value;
+      this._authService.login(email, password).subscribe(
+        resp => this._router.navigate([CREATE_USERS_ROUTE]),
+        error => (this.errorAuth = error)
+      );
+    }
+  }
+
+  ngOnInit() {}
+
+  goRegister() {
+    this._router.navigate(['auth/register']);
+  }
 }
