@@ -1,1 +1,6 @@
-<p>user-list works!</p>
+{{name}}<p>user-list works!</p>
+
+{{event |json}}
+
+<div *ngFor="let user of users">{{user.userName}}<button (click)="updateUser(user.id)" type="button">Editar</button>
+</div>

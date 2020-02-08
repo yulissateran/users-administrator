@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/core/services/auth.service";
 import { Observable } from "rxjs";
-import { User } from "firebase";
 
 @Component({
   selector: "app-header",

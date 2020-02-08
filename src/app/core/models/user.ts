@@ -1,5 +1,17 @@
 export interface User {
-  email:string;
-  password: string;
-  name?: string;
+  userName:string;
+  password: string,
+  fullName: string,
+  enabled: boolean;
+  email?:string,
+  adress?: string,
+  id?: string; 
+}
+export interface UserForm {
+  userName:string;
+  password: string,
+  fullName: string,
+  enabled: boolean;
+  email?:string,
+  adress?: string,
 }
