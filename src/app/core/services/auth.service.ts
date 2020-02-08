@@ -57,7 +57,7 @@ export class AuthService {
       case "auth/email-already-in-use":
         return "El correo ingresado ya se encuentra registrado";
       default:
-        return "Por favor revisa tu conección a internet";
+        return "Por favor revisa tu conexión a internet";
     }
   }
 }
