@@ -26,12 +26,14 @@ export class AuthService {
         .catch(error => subscriptor.error(handleError? handleError(error): error));
     });
   }
+  
   register(email: string, pass: string): Observable<string | any> {
     return this.fromPromise(
       this._afAuth.auth.createUserWithEmailAndPassword(email, pass),
       null,
      this.handleErrorRegister)
   }
+
   login(email: string, pass: string) {
     return from(this._afAuth.auth.signInWithEmailAndPassword(email, pass));
   }
