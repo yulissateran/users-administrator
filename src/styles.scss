@@ -1,9 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body, * {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@import 'scss/base/base.scss';
+@import 'scss/variables.scss';
+@import 'scss/layout/grid.scss';
+@import 'scss/layout/util.scss';
+
+@font-face {
+  font-family: $font-regular;
+  src: url('./assets/fonts/NunitoSans/NunitoSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: $font-bold;
+  src: url('./assets/fonts/NunitoSans/NunitoSans-Bold.ttf') format('truetype');
+}
+
+body {
+  font-family: $font-regular;
 }
