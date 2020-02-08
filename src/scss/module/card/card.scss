@@ -1,0 +1,10 @@
+@import 'src/scss/variables.scss';
+
+.container-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  // padding: 0 5px;
+  background-color: $color-primary;
+}

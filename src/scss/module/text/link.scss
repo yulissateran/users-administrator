@@ -1,0 +1,10 @@
+@import 'src/scss/variables.scss';
+
+.link {
+  color: $color-primary;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: $color-black;
+}

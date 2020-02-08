@@ -1,0 +1,10 @@
+@import 'src/scss/variables.scss';
+
+.btn-primary {
+  color: white;
+  background-color: $color-primary;
+  padding: 0.5rem 0;
+  width: 10em;
+  border-radius: 10rem;
+  font-size: 1rem;
+}

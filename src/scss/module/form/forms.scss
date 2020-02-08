@@ -1,8 +1,10 @@
 .form-control {
-  margin: 10px 0;
+  margin: 1em 0;
+
   label {
     padding-bottom: 5px;
   }
+
   input {
     border: none;
     border-bottom: 1px solid gray;
@@ -11,19 +13,20 @@
     height: 25px;
     padding: 0 5px;
     outline: none;
-   
+
   }
+
   input:focus {
     border-bottom: 1px solid $color-green;
   }
 
 }
 
-button {
-  margin: 20px 0;
-  padding: 10px 25px;
-  border-radius: 25px;
-  border: none;
-  background-color: $color-green;
-  color: white;
-}
+// button {
+//   margin: 20px 0;
+//   padding: 10px 25px;
+//   border-radius: 25px;
+//   border: none;
+//   background-color: $color-green;
+//   color: white;
+// }
