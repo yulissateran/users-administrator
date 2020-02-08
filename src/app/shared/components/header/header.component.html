@@ -1,6 +1,6 @@
-<div class="header">
+<div class="header topnav">
   <!-- <div  *ngIf="user"> -->
-    <button *ngIf="user" (click)="logOut()" type="button">Cerrar sesion</button>
+  <a class="active">Inicio</a>
+  <a *ngIf="user" (click)="logOut()">Cerrar sesion</a>
   <!-- </div> -->
 </div>
-

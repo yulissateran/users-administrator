@@ -18,7 +18,13 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _authService: AuthService
-  ) {
+  ) { }
+
+  ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
     this.formLogin = this._fb.group({
       email: [null, Validators.required],
       password: [null, Validators.required]
@@ -41,6 +47,5 @@ export class LoginComponent implements OnInit {
   goRegister() {
     this._router.navigate([REGISTER_ROUTE]);
   }
-  ngOnInit() {}
 
 }
