@@ -6,10 +6,11 @@ import {
   redirectUnauthorizedTo,
   redirectLoggedInTo
 } from "@angular/fire/auth-guard";
+import { LOGIN_ROUTE, ADMIN_MODULE_ROUTE, CREATE_USERS_ROUTE } from './constants';
 
 // const adminOnly = () => hasCustomClaim('admin');
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["/login"]);
-const redirectLoggedInToAdmin = () => redirectLoggedInTo(["/admin"]);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([LOGIN_ROUTE]);
+const redirectLoggedInToAdmin = () => redirectLoggedInTo([CREATE_USERS_ROUTE]);
 // const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
 
 const routes: Routes = [

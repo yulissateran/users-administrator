@@ -15,8 +15,22 @@ export class AuthService {
     return this._afAuth.authState;
   }
 
+  fromPromise(
+    promise,
+    handleResponse = response => response,
+    handleError = error => error
+  ) {
+   return new Observable(subscriptor => {
+      promise
+        .then(response => subscriptor.next(handleResponse(response)))
+        .catch(error => subscriptor.error(handleError(error)));
+    });
+  }
   register(email: string, pass: string): Observable<string | any> {
-    return from(this._afAuth.auth.createUserWithEmailAndPassword(email, pass));
+    return this.fromPromise(
+      this._afAuth.auth.createUserWithEmailAndPassword(email, pass),
+      (response)=>response,
+     this.handleErrorRegister)
   }
   login(email: string, pass: string) {
     return from(this._afAuth.auth.signInWithEmailAndPassword(email, pass));
