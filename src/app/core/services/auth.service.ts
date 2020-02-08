@@ -4,14 +4,17 @@ import * as firebase from "firebase";
 import { Observable } from "rxjs";
 import { from, of } from "rxjs";
 import { mergeMap, catchError, map } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { LOGIN_ROUTE } from 'src/app/constants';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  constructor(public _afAuth: AngularFireAuth) {}
+  constructor(public _afAuth: AngularFireAuth, private _router: Router) {}
 
-  stateSession(): any {
+  stateSession(): Observable<any> {
+    // return this._afAuth.authState.pipe(map(user=>));
     return this._afAuth.authState;
   }
 
@@ -38,8 +41,12 @@ export class AuthService {
     return from(this._afAuth.auth.signInWithEmailAndPassword(email, pass));
   }
 
-  logoutUser() {
-    return this._afAuth.auth.signOut();
+  logOut() {
+    return this._afAuth.auth.signOut()
+    .then(res=>{
+      console.log('navigate');
+      
+      this._router.navigate([LOGIN_ROUTE])});
   }
   handleErrorRegister(error) {
     switch (error.code) {

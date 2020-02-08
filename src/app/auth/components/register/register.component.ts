@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../../core/services/auth.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { passwordValidator } from "../../validators/password.validator";
 import { LOGIN_ROUTE, CREATE_USERS_ROUTE } from "src/app/constants";

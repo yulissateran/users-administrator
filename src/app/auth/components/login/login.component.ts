@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AngularFireAuth } from "@angular/fire/auth";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
-import { CREATE_USERS_ROUTE } from "src/app/constants";
+import { AuthService } from "../../../core/services/auth.service";
+import { CREATE_USERS_ROUTE, REGISTER_ROUTE } from "src/app/constants";
 
 @Component({
   selector: "app-login",
@@ -16,7 +15,6 @@ export class LoginComponent implements OnInit {
   public errorAuth: string | undefined;
   public sent: boolean = false;
   constructor(
-    public _angularFire: AngularFireAuth,
     private _router: Router,
     private _fb: FormBuilder,
     private _authService: AuthService
@@ -40,5 +38,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  goRegister() {
+    this._router.navigate([REGISTER_ROUTE]);
+  }
   ngOnInit() {}
 }
