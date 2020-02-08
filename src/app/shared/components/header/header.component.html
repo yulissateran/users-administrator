@@ -1,5 +1,6 @@
-<p>header works!</p>
-<!-- {{(user|json)}} -->
-<div  *ngIf="user">
-  <button (click)="logOut()" type="button">Cerrar sesion</button>
+<div class="header">
+  <!-- <div  *ngIf="user"> -->
+    <button *ngIf="user" (click)="logOut()" type="button">Cerrar sesion</button>
+  <!-- </div> -->
 </div>
+
