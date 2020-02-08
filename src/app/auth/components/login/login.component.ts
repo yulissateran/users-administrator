@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { AngularFireAuth } from "@angular/fire/auth";
-import { auth } from "firebase/app";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AuthService } from "../../services/auth.service";
+import { CREATE_USERS_ROUTE } from "src/app/constants";
 
 @Component({
   selector: "app-login",
@@ -12,11 +13,13 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
   public formLogin: FormGroup;
-
+  public errorAuth: string | undefined;
+  public sent: boolean = false;
   constructor(
     public _angularFire: AngularFireAuth,
     private _router: Router,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _authService: AuthService
   ) {
     this.formLogin = this._fb.group({
       email: [null, Validators.required],
@@ -25,17 +28,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this._angularFire);
     event.preventDefault();
-    // this._angularFire.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    this._router.navigate(["admin/create-users"]);
-
-    // this._router.navigate(['/home']);
-    console.log("redirect");
-  }
-
-  logout() {
-    // this.auth.signOut();
+    this.sent = true;
+    if (this.formLogin.valid) {
+      this.errorAuth = undefined;
+      const { email, password } = this.formLogin.value;
+      this._authService.login(email, password).subscribe(
+        resp => this._router.navigate([CREATE_USERS_ROUTE]),
+        error => (this.errorAuth = error)
+      );
+    }
   }
 
   ngOnInit() {}

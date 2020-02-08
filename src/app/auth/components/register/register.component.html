@@ -28,11 +28,11 @@
         <div *ngIf="errorAuth">
           {{errorAuth}}
         </div>
-        <button>Crear cuenta</button>
+        <button (click)="register()">Crear cuenta</button>
       </form>
     </div>
     <div class="card-auth__footer">
-      <p><small>¿Ya tienes una cuenta?</small><span class="link" (click)="register()">Iniciar sesión</span></p>
+      <p><small>¿Ya tienes una cuenta?</small><span class="link" (click)="goLogin()">Iniciar sesión</span></p>
     </div>
   </div>
 </div>

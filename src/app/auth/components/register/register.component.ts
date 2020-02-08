@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { auth } from "firebase/app";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -42,10 +40,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   register() {
     event.preventDefault();
-    
     this.sentForm = true;
-    this.errorAuth = undefined;
     if (this.formRegister.valid) {
+      this.errorAuth = undefined;
       const { email, password } = this.formRegister.value;
       this.subscription = this._authService
         .register(email, password)
