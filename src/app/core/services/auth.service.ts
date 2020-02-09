@@ -3,19 +3,19 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from "firebase";
 import { Observable } from "rxjs";
 import { from, of } from "rxjs";
-import { mergeMap, catchError, map } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { LOGIN_ROUTE } from 'src/app/constants';
+import { AngularFireAuthMock } from 'src/mocks/angularfire-auth.mock';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  constructor(public _afAuth: AngularFireAuth, private _router: Router) {}
+  // constructor(public _aFireAuth: AngularFireAuth, private _router: Router) {}
+  constructor(public _aFireAuth: AngularFireAuthMock, private _router: Router) {}
 
   stateSession(): Observable<any> {
-    // return this._afAuth.authState.pipe(map(user=>));
-    return this._afAuth.authState;
+    return this._aFireAuth.authState;
   }
 
   fromPromise(
@@ -32,23 +32,26 @@ export class AuthService {
   
   register(email: string, pass: string): Observable<string | any> {
     return this.fromPromise(
-      this._afAuth.auth.createUserWithEmailAndPassword(email, pass),
+      this._aFireAuth.auth.createUserWithEmailAndPassword(email, pass),
       null,
      this.handleErrorRegister)
   }
 
   login(email: string, pass: string) {
-    return from(this._afAuth.auth.signInWithEmailAndPassword(email, pass));
+     const response = this.fromPromise(this._aFireAuth.auth.signInWithEmailAndPassword(email, pass), null, null);
+     console.log(response)
+     response.subscribe(resp=>console.log('resp login : ', 'dDSVS ' + resp))
+     return response;
   }
 
   logOut() {
-    return this._afAuth.auth.signOut()
-    .then(res=>{
-      console.log('navigate');
-      
-      this._router.navigate([LOGIN_ROUTE])});
+    return this._aFireAuth.auth.signOut()
+    .then(res=>    
+      this._router.navigate([LOGIN_ROUTE])
+  );
   }
   handleErrorRegister(error) {
+    console.log(error)
     switch (error.code) {
       case "auth/network-request-failed":
         return "Por favor revisa tu conección a internet";

@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   register() {
     event.preventDefault();
     this.sentForm = true;
-    if (this.formRegister.valid) {
+    // if (this.formRegister.valid) {
       this.errorAuth = undefined;
       const { email, password } = this.formRegister.value;
       this.subscription = this._authService
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           resp => this._router.navigate([CREATE_USERS_ROUTE]),
           error => this.errorAuth = error
         );
-    }
+    // }
   }
 
 

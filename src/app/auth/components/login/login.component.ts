@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
 import { CREATE_USERS_ROUTE, REGISTER_ROUTE } from "src/app/constants";
-
+import { ErrorAuth } from '../../../core/models/error-auth'
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -38,8 +38,9 @@ export class LoginComponent implements OnInit {
       this.errorAuth = undefined;
       const { email, password } = this.formLogin.value;
       this._authService.login(email, password).subscribe(
-        resp => this._router.navigate([CREATE_USERS_ROUTE]),
-        error => (this.errorAuth = error)
+        resp =>{ console.log('resp' , JSON.stringify(resp)) ;this._router.navigate([CREATE_USERS_ROUTE])},
+        (error: ErrorAuth) => {console.log('error', error);
+        this.errorAuth = error.message}
       );
     }
   }
