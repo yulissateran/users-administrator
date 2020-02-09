@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { UserMock } from "src/mocks/user-mock";
 import { User } from "src/mocks/models/user";
 import { ErrorAuth } from '../models/error-auth';
-import { LOGIN_ROUTE } from 'src/app/constants';
+import { LOGIN_ROUTE, USER_ADMIN_EMAIL, USER_ADMIN_PASSWORD } from 'src/app/constants';
 fdescribe("AuthService", () => {
   let service: AuthService;
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
@@ -34,7 +34,7 @@ fdescribe("AuthService", () => {
   it("login() should be return an object with  an user property when the authentication is correct", async () => {
     // const User: User = UserMock;
     service
-      .login("yulissa.lteran@gmail.com", "YulissaT*@")
+      .login({ email: USER_ADMIN_EMAIL, pass: USER_ADMIN_PASSWORD })
       .subscribe((response) => {
         expect(Object.keys(response)).toContain('user');
       });
@@ -42,7 +42,7 @@ fdescribe("AuthService", () => {
 
   it("login() should be return an Error object with 'code' and 'message' properties when the authentication is incorrect", async () => {
     // const User: User = UserMock
-    service.login('yulissa.lt eran@gmail.com', 'YulissaT*@')
+    service.login({ email: USER_ADMIN_EMAIL + '.edu', pass: USER_ADMIN_PASSWORD })
     .subscribe(() => {},
     (error:ErrorAuth) => {
        expect(Object.keys(error)).toEqual(['code', 'message']);
@@ -57,15 +57,4 @@ fdescribe("AuthService", () => {
     })
   });
 
-  // it("logOut should be redirect to the login ", () => {?¡¡¡^'
-  //   const User: User = UserMock
-  //   service.logOut()
-  //   .then(response=>{},error=>expect(Object.keys(error)).toEqual(['code','message']))
-  // });
-
-  // it("login() should be return an error object when the authentication", () => {
-  //   const User: User = UserMock
-  //   service.login('yulissa.lteran@gmail.com', 'Yul_issaT*@').subscribe(response=>
-  //     expect(typeof response === 'object').toBeTruthy())
-  // });
 });

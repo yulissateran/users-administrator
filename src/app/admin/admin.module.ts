@@ -5,11 +5,12 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AdminRoutingModule } from './admin-routing,module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutComponent } from './pages/layout/layout.component';
 
 
 
 @NgModule({
-  declarations: [UserFormComponent, UserListComponent],
+  declarations: [UserFormComponent, UserListComponent, LayoutComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

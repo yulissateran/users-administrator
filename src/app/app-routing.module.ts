@@ -6,8 +6,8 @@ import {
   redirectUnauthorizedTo,
   redirectLoggedInTo
 } from "@angular/fire/auth-guard";
-import { LOGIN_ROUTE, CREATE_USERS_ROUTE } from './constants';
-import { LayoutComponent } from './layout/layout.component';
+import { LOGIN_ROUTE, CREATE_USERS_ROUTE } from "./constants";
+import { LayoutComponent } from "./admin/pages/layout/layout.component";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([LOGIN_ROUTE]);
 const redirectLoggedInToAdmin = () => redirectLoggedInTo([CREATE_USERS_ROUTE]);
@@ -26,17 +26,10 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    component: LayoutComponent,
-    children: [
-      {
-        path: "",
-        canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectUnauthorizedToLogin },
-        loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
-      }
-    ]
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
   }
-
 ];
 
 @NgModule({
