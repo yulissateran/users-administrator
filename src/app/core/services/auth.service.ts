@@ -1,9 +1,19 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Observable } from "rxjs";
-import { Router } from '@angular/router';
-import { LOGIN_ROUTE } from 'src/app/constants';
-import { fromPromise } from '../functions/observable-from-promise';
+import { Router } from "@angular/router";
+import {
+  LOGIN_ROUTE,
+  NOT_USER_FOUND_ERROR_CODE,
+  NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE,
+  WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE,
+  INVALID_EMAIL_ERROR__DISPLAY_MESSAGE,
+  INVALID_EMAIL_ERROR_CODE,
+  WRONG_PASSWORD_ERROR_CODE,
+  DEFAULT_ERROR__DISPLAY_MESSAGE
+} from "src/app/constants";
+import { fromPromise } from "../functions/observable-from-promise";
+import { ErrorAuth } from '../models/error-auth';
 
 @Injectable({
   providedIn: "root"
@@ -19,21 +29,27 @@ export class AuthService {
     return fromPromise(
       this._aFireAuth.auth.createUserWithEmailAndPassword(email, pass),
       null,
-     this.handleErrorRegister)
+      this.handleErrorRegister
+    );
   }
 
-  login({ email, pass }: { email: string; pass: string; }) {
-    console.log(fromPromise, typeof fromPromise)
-    return fromPromise(this._aFireAuth.auth.signInWithEmailAndPassword(email, pass), null, null);
+  login({ email, password }: { email: string; password: string }) {
+    console.log(fromPromise, typeof fromPromise);
+    return fromPromise(
+      this._aFireAuth.auth.signInWithEmailAndPassword(email, password),
+      null,
+      this.handleErrorLogin
+    );
   }
 
-  logOut():Promise<any> {
-    return this._aFireAuth.auth.signOut()
-    .then(res=> this._router.navigate([LOGIN_ROUTE]));
+  logOut(): Promise<any> {
+    return this._aFireAuth.auth
+      .signOut()
+      .then(res => this._router.navigate([LOGIN_ROUTE]));
   }
 
   handleErrorRegister(error) {
-    console.log(error)
+    console.log(error);
     switch (error.code) {
       case "auth/network-request-failed":
         return "Por favor revisa tu conección a internet";
@@ -44,5 +60,23 @@ export class AuthService {
       default:
         return "Por favor revisa tu conexión a internet";
     }
+  }
+
+  handleErrorLogin(error:ErrorAuth):string {
+    let errorDisplayMessage;
+    switch (error.code) {
+      case NOT_USER_FOUND_ERROR_CODE:
+        errorDisplayMessage = NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE;
+        break;
+      case WRONG_PASSWORD_ERROR_CODE:
+        errorDisplayMessage = WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE;
+        break;
+      case INVALID_EMAIL_ERROR_CODE:
+        errorDisplayMessage = INVALID_EMAIL_ERROR__DISPLAY_MESSAGE;
+        break;
+        default:
+        errorDisplayMessage = DEFAULT_ERROR__DISPLAY_MESSAGE;
+    }
+    return errorDisplayMessage;
   }
 }

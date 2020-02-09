@@ -13,10 +13,11 @@
           <label for="password">Contraseña</label>
           <input formControlName="password" type="password" id="password" />
         </div>
+        <div *ngIf="errorAuth" class="text-error text-center">
+         <small>{{errorAuth}}</small></div>
         <div class="text-center mt-2">
           <button class="btn-primary">Iniciar sesión</button>
         </div>
-        <!-- <div *ngIf="errorAuth">{{errorAuth}}</div> -->
       </form>
     </div>
     <div class="card-auth__footer text-center mt-2">

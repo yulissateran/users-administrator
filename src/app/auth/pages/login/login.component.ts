@@ -38,11 +38,10 @@ export class LoginComponent implements OnInit {
     this.sent = true;
     if (this.formLogin.valid) {
       this.errorAuth = undefined;
-      const { email, password } = this.formLogin.value;
-      this._authService.login({ email, pass: password }).subscribe(
+      this._authService.login(this.formLogin.value).subscribe(
         resp =>{ console.log('resp' , JSON.stringify(resp)) ;this._router.navigate([CREATE_USERS_ROUTE])},
-        (error: ErrorAuth) => { console.log('error' , JSON.stringify(error));
-        this.errorAuth = error.message}
+        (error: string) => { console.log('error' , JSON.stringify(error));
+        this.errorAuth = error}
       );
     }
   }
@@ -51,22 +50,5 @@ export class LoginComponent implements OnInit {
     this._router.navigate([REGISTER_ROUTE]);
   }
 
-//   handleError(error){
-//    switch (error.code) {
-//   case value:
-    
-//     break;
-
-//   default:
-//     break;
-// }
-//   }
-//no existe usuario
-  // {"code":"auth/user-not-found",
-  // "message":"There is no user record corresponding to this identifier. The user may have been deleted."}
-// password invalido
-  // {"code":"auth/wrong-password","message":"The password is invalid or the user does not have a password."}
-  //email invalido
-  // {"code":"auth/invalid-email","message":"The email address is badly formatted."}
 
 }
