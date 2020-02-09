@@ -4,14 +4,15 @@ import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
 import { CREATE_USERS_ROUTE, REGISTER_ROUTE } from "src/app/constants";
-import { ErrorAuth } from '../../../core/models/error-auth';
+import { ErrorAuth } from "../../../core/models/error-auth";
+import { map, catchError } from "rxjs/operators";
+import { of, Subject, Subscription } from "rxjs";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"]
 })
-
 export class LoginComponent implements OnInit {
   public formLogin: FormGroup;
   public errorAuth: string | undefined;
@@ -20,34 +21,40 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.buildForm();
+    this.formLogin = this.getForm();
   }
 
-  buildForm() {
-    this.formLogin = this._fb.group({
+  getForm() {
+    return this._fb.group({
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
   }
 
-  login() {
+  sendLogin(form) {
+    return this._authService.login(form).pipe(
+      catchError((error: string) => {
+        this.errorAuth = error;
+        return of(null);
+      })
+    );
+  }
+
+  login(form:FormGroup):false | Subscription {
     event.preventDefault();
     this.sent = true;
-    if (this.formLogin.valid) {
+    if (this.isValidForm(form)) {
       this.errorAuth = undefined;
-      this._authService.login(this.formLogin.value).subscribe(
-        resp =>{ this._router.navigate([CREATE_USERS_ROUTE])},
-        (error: string) => {this.errorAuth = error}
-      );
+      return this.sendLogin(form.value).subscribe();
     }
   }
+
+  isValidForm = form => form.valid;
 
   goRegister() {
     this._router.navigate([REGISTER_ROUTE]);
   }
-
-
 }
