@@ -8,7 +8,9 @@ import { CREATE_USERS_DOMAIN } from 'src/app/constants';
   styleUrls: ["./user-list.component.scss"]
 })
 export class UserListComponent implements OnInit {
-  constructor() {}
+
+  constructor() { }
+
   public users: User[] = [
     {
       userName: "yuli",
@@ -31,17 +33,30 @@ export class UserListComponent implements OnInit {
   ];
   name: string;
   event: any;
-  ngOnInit() {}
+
+  // toggle
+  itemSelected = false;
+  itemSelectedID = '';
+
+  ngOnInit() { }
+
   @HostListener("window:message", ["$event"])
   onMessage(event) {
-    if(event.origin !== CREATE_USERS_DOMAIN) return;
+    if (event.origin !== CREATE_USERS_DOMAIN) return;
     console.log("event charge users: ", event);
     this.name = event.data.name;
     this.event = event;
   }
 
-  updateUser(idUser: string){
+  updateUser(idUser: string) {
     console.log('idUser: ', idUser)
     window.parent.postMessage(idUser, CREATE_USERS_DOMAIN)
+  }
+
+  toggleShowList( id: string) {
+    if (!this.itemSelected) {
+      this.itemSelected = true;
+      this.itemSelectedID = id;
+    } else this.itemSelected = false;
   }
 }
