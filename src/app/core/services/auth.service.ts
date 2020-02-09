@@ -11,8 +11,7 @@ import { AngularFireAuthMock } from 'src/mocks/angularfire-auth.mock';
   providedIn: "root"
 })
 export class AuthService {
-  // constructor(public _aFireAuth: AngularFireAuth, private _router: Router) {}
-  constructor(public _aFireAuth: AngularFireAuthMock, private _router: Router) {}
+  constructor(public _aFireAuth: AngularFireAuth, private _router: Router) {}
 
   stateSession(): Observable<any> {
     return this._aFireAuth.authState;
@@ -38,18 +37,16 @@ export class AuthService {
   }
 
   login(email: string, pass: string) {
-     const response = this.fromPromise(this._aFireAuth.auth.signInWithEmailAndPassword(email, pass), null, null);
-     console.log(response)
-     response.subscribe(resp=>console.log('resp login : ', 'dDSVS ' + resp))
-     return response;
+    return this.fromPromise(this._aFireAuth.auth.signInWithEmailAndPassword(email, pass), null, null);
   }
 
-  logOut() {
+  logOut():Promise<any> {
     return this._aFireAuth.auth.signOut()
     .then(res=>    
       this._router.navigate([LOGIN_ROUTE])
   );
   }
+
   handleErrorRegister(error) {
     console.log(error)
     switch (error.code) {
