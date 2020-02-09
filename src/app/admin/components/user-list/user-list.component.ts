@@ -35,13 +35,13 @@ export class UserListComponent implements OnInit {
   @HostListener("window:message", ["$event"])
   onMessage(event) {
     if(event.origin !== CREATE_USERS_DOMAIN) return;
-    console.log("event charge users: ", event);
+    // console.log("event charge users: ", event);
     this.name = event.data.name;
     this.event = event;
   }
 
   updateUser(idUser: string){
-    console.log('idUser: ', idUser)
+    // console.log('idUser: ', idUser)
     window.parent.postMessage(idUser, CREATE_USERS_DOMAIN)
   }
 }
