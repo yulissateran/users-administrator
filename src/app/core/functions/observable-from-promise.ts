@@ -7,7 +7,13 @@ export const fromPromise = (
 ) =>{
  return new Observable(subscriptor => {
     promise
-      .then(response => subscriptor.next(handleResponse? handleResponse(response):response ))
-      .catch(error => subscriptor.error(handleError? handleError(error): error));
+      .then(response => 
+        {
+          return subscriptor.next(handleResponse ? handleResponse(response) : response);
+        },
+         error =>   subscriptor.error(handleError? handleError(error): error))
+      .catch(error => {
+        console.log('ERROR PROMISE', error)
+        return subscriptor.error(handleError? handleError(error): error)});
   });
 }

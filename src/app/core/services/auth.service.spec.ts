@@ -19,11 +19,21 @@ import {
   WRONG_PASSWORD_ERROR_MESSAGE,
   INVALID_EMAIL_ERROR__DISPLAY_MESSAGE,
   INVALID_EMAIL_ERROR_CODE,
-  INVALID_EMAIL_ERROR_MESSAGE
+  INVALID_EMAIL_ERROR_MESSAGE,
+  CREATE_USERS_ROUTE
 } from "src/app/constants";
+import { initializeApp } from 'firebase';
 fdescribe("AuthService", () => {
+const getService = () =>  TestBed.get(AuthService);
+const getRouter = () => jasmine.createSpyObj("Router", ["navigate"]);
   let service: AuthService;
-  const routerSpy = jasmine.createSpyObj("Router", ["navigate"]);
+  let routerSpy = getRouter();
+  const adminUser = {
+    email: USER_ADMIN_EMAIL,
+    password: USER_ADMIN_PASSWORD
+  };
+
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -37,23 +47,38 @@ fdescribe("AuthService", () => {
         }
       ]
     });
-    service = TestBed.get(AuthService);
+    // routerSpy = getRouter();
+    service = getService();
+  });
+
+  afterEach(() => {
+    // service = undefined;
+    // routerSpy = undefined;
   });
 
   it("should be created", () => {
     expect(service).toBeTruthy();
   });
 
-  it("login() should be return an object with  an user property when the authentication is correct", async () => {
-    // const User: User = UserMock;
-    service
-      .login({ email: USER_ADMIN_EMAIL, password: USER_ADMIN_PASSWORD })
-      .subscribe(response => {
-        expect(Object.keys(response)).toContain("user");
-      });
-  });
+  // it("login() should be return an object with  an user property when the authentication is correct", async () => {
+  //   // const User: User = UserMock;
+  //   service.login(adminUser).subscribe(response => {
+  //     expect(Object.keys(response)).toContain("user");
+  //   });
+  // });
+  // it(`login() should be redirect to ${CREATE_USERS_ROUTE} when the authentication is correct`, async (done: DoneFn) => {
+  //   // const User: User = UserMock;
+  //   service.login(adminUser).subscribe(response => {
+  //     // expect(Object.keys(response)).toContain("user");
+  //     const spy = routerSpy.navigate as jasmine.Spy;
+  //     console.log(spy)
+  //     done();
+  //     // const navArgs = spy.calls.first().args[0];
+  //     // expect(navArgs).toContain(LOGIN_ROUTE);
+  //   });
+  // });
 
-  it(`login() should be return an error message with the message: '${WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE}' when the password was incorrect`, async () => {
+  it(`login() should be return an error message with the message: '${WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE}' when the password was incorrect`, async (done: DoneFn) => {
     // const User: User = UserMock
     service
       .login({
@@ -61,21 +86,25 @@ fdescribe("AuthService", () => {
         password: USER_ADMIN_PASSWORD + ".*"
       })
       .subscribe(
-        () => { },
-        (error: ErrorAuth) => {
-          expect(Object.keys(error)).toEqual(["code", "message"]);
+        () => {},
+        (error: string) => {
+          expect(error).toEqual(WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE);
+          done();
         }
       );
   });
 
-  // it("logOut() should navigate to " + LOGIN_ROUTE + " when the session end",
-  //   async () => {
-  //     service.logOut().then(res => {
-  //       const spy = routerSpy.navigate as jasmine.Spy;
-  //       const navArgs = spy.calls.first().args[0];
-  //       expect(navArgs).toContain(LOGIN_ROUTE);
-  //     });
-  //   });
+  it(`logOut() should navigate to ${ LOGIN_ROUTE}  when the session end`,
+    async (done: DoneFn) => {
+      service.logOut().then(res => {
+        const spy = routerSpy.navigate as jasmine.Spy;
+        const navArgs = spy.calls.mostRecent().args[0];
+        expect(navArgs).toContain(LOGIN_ROUTE);
+        done()
+      });
+    }
+  );
+
   it(`handleErrorLogin(error) should return an string with value:  ${NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE}
     for the next coder error:  ${NOT_USER_FOUND_ERROR_CODE}`, async () => {
     const error: ErrorAuth = {
@@ -83,10 +112,9 @@ fdescribe("AuthService", () => {
       message: NOT_USER_FOUND_ERROR_MESSAGE
     };
     const errorMessageDisplay = service.handleErrorLogin(error);
-    expect(errorMessageDisplay).toEqual(
-      NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE
-    );
+    expect(errorMessageDisplay).toEqual(NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE);
   });
+
   it(`handleErrorLogin(error) should return an string with value:  ${WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE}
       for the next coder error:  ${WRONG_PASSWORD_ERROR_CODE}`, async () => {
     const error: ErrorAuth = {
@@ -94,9 +122,7 @@ fdescribe("AuthService", () => {
       message: WRONG_PASSWORD_ERROR_MESSAGE
     };
     const errorMessageDisplay = service.handleErrorLogin(error);
-    expect(errorMessageDisplay).toEqual(
-      WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE
-    );
+    expect(errorMessageDisplay).toEqual(WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE);
   });
 
   it(`handleErrorLogin(error) should return an string with value:  ${INVALID_EMAIL_ERROR__DISPLAY_MESSAGE}
@@ -106,9 +132,27 @@ fdescribe("AuthService", () => {
       message: INVALID_EMAIL_ERROR_MESSAGE
     };
     const errorMessageDisplay = service.handleErrorLogin(error);
-    expect(errorMessageDisplay).toEqual(
-      INVALID_EMAIL_ERROR__DISPLAY_MESSAGE
-    );
+    expect(errorMessageDisplay).toEqual(INVALID_EMAIL_ERROR__DISPLAY_MESSAGE);
+  });
+
+  it(`stateSession() should return an object when exist user`, async (done: DoneFn) => {
+    service.login(adminUser).subscribe(res => {
+      service
+        .stateSession()
+        .subscribe(res =>{ 
+          expect(typeof res).toEqual("object")
+        done()
+      },err=>{});
+    });
+  });
+
+  it(`stateSession() should return null when not exist user`, async (done: DoneFn) => {
+    service.logOut().then(res => {
+      service
+        .stateSession()
+        .subscribe(res => {
+          expect(res).toEqual(null)
+          done()}, error=>{});
+    });
   });
 });
-

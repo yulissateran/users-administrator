@@ -19,22 +19,16 @@ export class AngularFireAuthMock {
     // },
 
     signInWithEmailAndPassword: (email, password) => {
-      console.log('email',email, 'password', password)
-      return new Promise((reject, resolve) => {
+      return new Promise((resolve, reject) => {
         if (email !== "yulissa.lteran@gmail.com" || password !== "YulissaT*@") {
-          console.log('reject')
-
           reject({
             code: "auth/wrong-password",
             message:
               "The password is invalid or the user does not have a password."
           });
         } else {
-
           const currentUser = UserMock;
           this.authState.next(currentUser);
-          console.log('resolve', currentUser === UserMock)
-
           resolve(currentUser);
         }
       });

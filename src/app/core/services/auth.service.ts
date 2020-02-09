@@ -10,7 +10,8 @@ import {
   INVALID_EMAIL_ERROR__DISPLAY_MESSAGE,
   INVALID_EMAIL_ERROR_CODE,
   WRONG_PASSWORD_ERROR_CODE,
-  DEFAULT_ERROR__DISPLAY_MESSAGE
+  DEFAULT_ERROR__DISPLAY_MESSAGE,
+  CREATE_USERS_ROUTE
 } from "src/app/constants";
 import { fromPromise } from "../functions/observable-from-promise";
 import { ErrorAuth } from '../models/error-auth';
@@ -25,16 +26,15 @@ export class AuthService {
     return this._aFireAuth.authState;
   }
 
-  register(email: string, pass: string): Observable<string | any> {
-    return fromPromise(
-      this._aFireAuth.auth.createUserWithEmailAndPassword(email, pass),
-      null,
-      this.handleErrorRegister
-    );
-  }
+  // register(email: string, pass: string): Observable<string | any> {
+  //   return fromPromise(
+  //     this._aFireAuth.auth.createUserWithEmailAndPassword(email, pass),
+  //     null,
+  //     this.handleErrorRegister
+  //   );
+  // }
 
   login({ email, password }: { email: string; password: string }) {
-    console.log(fromPromise, typeof fromPromise);
     return fromPromise(
       this._aFireAuth.auth.signInWithEmailAndPassword(email, password),
       null,
@@ -42,27 +42,34 @@ export class AuthService {
     );
   }
 
+  private redirectCreateUsers(user) {
+    console.log('NO ERROR,:', user)
+    //  this._router.navigate([CREATE_USERS_ROUTE]);
+     return user;
+  }
+
   logOut(): Promise<any> {
     return this._aFireAuth.auth
       .signOut()
-      .then(res => this._router.navigate([LOGIN_ROUTE]));
+      .then(res => 
+        this._router.navigate([LOGIN_ROUTE]));
   }
 
-  handleErrorRegister(error) {
-    console.log(error);
-    switch (error.code) {
-      case "auth/network-request-failed":
-        return "Por favor revisa tu conección a internet";
-      case "auth/invalid-email":
-        return "El correo ingresado es inválido";
-      case "auth/email-already-in-use":
-        return "El correo ingresado ya se encuentra registrado";
-      default:
-        return "Por favor revisa tu conexión a internet";
-    }
-  }
+  // handleErrorRegister(error) {
+  //   switch (error.code) {
+  //     case "auth/network-request-failed":
+  //       return "Por favor revisa tu conección a internet";
+  //     case "auth/invalid-email":
+  //       return "El correo ingresado es inválido";
+  //     case "auth/email-already-in-use":
+  //       return "El correo ingresado ya se encuentra registrado";
+  //     default:
+  //       return "Por favor revisa tu conexión a internet";
+  //   }
+  // }
 
   handleErrorLogin(error:ErrorAuth):string {
+    // console.log('ErrOR',error);
     let errorDisplayMessage;
     switch (error.code) {
       case NOT_USER_FOUND_ERROR_CODE:
