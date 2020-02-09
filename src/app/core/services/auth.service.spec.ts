@@ -68,14 +68,15 @@ fdescribe("AuthService", () => {
       );
   });
 
-  // it("logOut() should navigate to " + LOGIN_ROUTE + " when the session end",
-  //   async () => {
-  //     service.logOut().then(res => {
-  //       const spy = routerSpy.navigate as jasmine.Spy;
-  //       const navArgs = spy.calls.first().args[0];
-  //       expect(navArgs).toContain(LOGIN_ROUTE);
-  //     });
-  //   });
+  it("logOut() should navigate to " + LOGIN_ROUTE + " when the session end",
+    async () => {
+      service.logOut().then(res => {
+        const spy = routerSpy.navigate as jasmine.Spy;
+        const navArgs = spy.calls.first().args[0];
+        expect(navArgs).toContain(LOGIN_ROUTE);
+      });
+    });
+
   it(`handleErrorLogin(error) should return an string with value:  ${NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE}
     for the next coder error:  ${NOT_USER_FOUND_ERROR_CODE}`, async () => {
     const error: ErrorAuth = {
@@ -87,6 +88,7 @@ fdescribe("AuthService", () => {
       NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE
     );
   });
+  
   it(`handleErrorLogin(error) should return an string with value:  ${WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE}
       for the next coder error:  ${WRONG_PASSWORD_ERROR_CODE}`, async () => {
     const error: ErrorAuth = {

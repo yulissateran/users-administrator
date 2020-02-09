@@ -39,9 +39,8 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.valid) {
       this.errorAuth = undefined;
       this._authService.login(this.formLogin.value).subscribe(
-        resp =>{ console.log('resp' , JSON.stringify(resp)) ;this._router.navigate([CREATE_USERS_ROUTE])},
-        (error: string) => { console.log('error' , JSON.stringify(error));
-        this.errorAuth = error}
+        resp =>{ this._router.navigate([CREATE_USERS_ROUTE])},
+        (error: string) => {this.errorAuth = error}
       );
     }
   }

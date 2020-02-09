@@ -19,7 +19,7 @@ export class UserFormComponent implements OnInit {
   onMessage(event) {
     if(event.origin !== LIST_USERS_DOMAIN) return;
     const idUser : string = event.data;
-    console.log("event editar usuario: ", event, idUser);
+    // console.log("event editar usuario: ", event, idUser);
 
   }
   buildForm(){
@@ -52,11 +52,11 @@ export class UserFormComponent implements OnInit {
   AddUser() {
     event.preventDefault();
     // if(this.userForm.valid){
-    console.log(
-      "user: ",
-      this.userForm.value,
-      this.iFrame.nativeElement.contentWindow.postMessage
-    );
+    // console.log(
+    //   "user: ",
+    //   this.userForm.value,
+    //   this.iFrame.nativeElement.contentWindow.postMessage
+    // );
     this.iFrame.nativeElement.contentWindow.postMessage(
       { name: "yuli desde otra ventana xD" },
       this.iFrameURL

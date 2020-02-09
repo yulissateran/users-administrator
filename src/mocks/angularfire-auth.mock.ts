@@ -19,7 +19,6 @@ export class AngularFireAuthMock {
     // },
 
     signInWithEmailAndPassword: (email, password) => {
-      console.log('email',email, 'password', password)
       return new Promise((reject, resolve) => {
         if (email !== "yulissa.lteran@gmail.com" || password !== "YulissaT*@") {
           console.log('reject')

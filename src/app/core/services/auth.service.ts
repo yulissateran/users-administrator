@@ -34,7 +34,6 @@ export class AuthService {
   }
 
   login({ email, password }: { email: string; password: string }) {
-    console.log(fromPromise, typeof fromPromise);
     return fromPromise(
       this._aFireAuth.auth.signInWithEmailAndPassword(email, password),
       null,
@@ -49,7 +48,6 @@ export class AuthService {
   }
 
   handleErrorRegister(error) {
-    console.log(error);
     switch (error.code) {
       case "auth/network-request-failed":
         return "Por favor revisa tu conección a internet";
