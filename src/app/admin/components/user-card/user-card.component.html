@@ -2,24 +2,30 @@
   <div class="card-user-info-header" (click)="toggleShowMore()">
     <div class="row">
       <div class="col-6">
-        <h4>Nombre: {{ user.fullName }}</h4>
+        <h4>Nombre de usuario: {{ user.username }}</h4>
       </div>
       <div class="col-6 text-right">
-        <img
-          class="img-arrow-down"
-          [ngClass]="{ transformed: isOpen }"
-          src="./assets/img/arrow-down.svg"
-          alt="arrow-down"
-        />
+        <img class="img-arrow-down" [ngClass]="{ transformed: isOpen }" src="./assets/img/arrow-down.svg"
+          alt="arrow-down" />
       </div>
     </div>
   </div>
   <div class="card-user-info-body" *ngIf="isOpen">
-    <div>{{ user.id }}</div>
-    <div>{{ user.email }}</div>
-    <button [type]="button" (click)="update(user.id)">edit</button>
-    <button [type]="button" (click)="remove(user.id)">delete</button>
-    <button [type]="button" (click)="enable(user.id)">habilite</button>
+    <div class="mt-1">ID: {{ user.id }}</div>
+    <div class="mt-1">Nombre completo: {{ user.fullname }}</div>
+    <div class="mt-1">Correo electrónico: {{ user.email }}</div>
+    <div class="mt-1">Dirección: {{ user.address }}</div>
+    <div class="mt-1 d-flex align-items-center">Contraseña:
+      <span class="password ml-1">{{user.password}}</span>
+      <span class="ml-1"><img width="20px" src="./assets/img/eye.svg" alt="eye"></span>
+    </div>
+    <div class="mt-1">Estado: {{user.enabled ? 'HABILITADO': 'INHABILITADO'}}</div>
+
+    <div class="card-user-info-footer mt-1">
+      <button class="btn-primary mx-1" [type]="button" (click)="update(user.id)">Editar</button>
+      <button class="btn-primary mx-1" [type]="button" (click)="remove(user.id)">Eliminar</button>
+      <button class="btn-primary mx-1" [type]="button" (click)="enable(user.id)">Habilitar</button>
+    </div>
   </div>
 </div>
 
@@ -38,4 +44,3 @@
     ></app-button>
   </ng-container>
 </app-modal> -->
-

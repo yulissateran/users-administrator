@@ -6,10 +6,10 @@ import {
   redirectUnauthorizedTo,
   redirectLoggedInTo
 } from "@angular/fire/auth-guard";
-import { LOGIN_ROUTE, LIST_USERS_ROUTE } from "./constants";
+import { LOGIN_ROUTE, CREATE_USERS_ROUTE } from "./constants";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([LOGIN_ROUTE]);
-const redirectLoggedInToAdmin = () => redirectLoggedInTo([LIST_USERS_ROUTE]);
+const redirectLoggedInToAdmin = () => redirectLoggedInTo([CREATE_USERS_ROUTE]);
 
 const routes: Routes = [
   {

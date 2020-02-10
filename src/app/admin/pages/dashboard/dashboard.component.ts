@@ -31,21 +31,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   modalActive: boolean = false;
   users$: BehaviorSubject<User[]> = new BehaviorSubject([
     {
-      userName: "yuli",
+      username: "yuli",
       password: "*68Hyt",
-      fullName: "yuli teran",
+      fullname: "yuli teran",
       enabled: true,
       email: "cdc@jkasfhkjsf.com",
-      adress: "",
+      address: "",
       id: "1"
     },
     {
-      userName: "Anaflavia",
+      username: "Anaflavia",
       password: "*68Hcyt",
-      fullName: "Anaflavia",
+      fullname: "Anaflavia",
       enabled: true,
       email: "cdc@Anaflavia.com",
-      adress: "",
+      address: "",
       id: "2"
     }
   ]);

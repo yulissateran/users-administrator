@@ -14,21 +14,21 @@ export class UserListComponent implements OnInit {
 
   public users$: BehaviorSubject<User[]> = new BehaviorSubject([
     {
-      userName: "yuli",
+      username: "yuli",
       password: "*68Hyt",
-      fullName: "yuli teran",
-      enabled: true,
+      fullname: "yuli teran",
+      enabled: false,
       email: "cdc@jkasfhkjsf.com",
-      adress: "",
+      address: "Urb Jiron",
       id: '1'
     },
     {
-      userName: "Anaflavia",
+      username: "Anaflavia",
       password: "*68Hcyt",
-      fullName: "Anaflavia",
+      fullname: "Anaflavia",
       enabled: true,
       email: "cdc@Anaflavia.com",
-      adress: "",
+      address: "Los libertadores",
       id: '2'
     }
   ])

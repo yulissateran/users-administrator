@@ -25,6 +25,22 @@ $sides: (top, bottom, left, right);
   .p-#{$space} {
     padding: #{$space}rem !important;
   }
+
+  .mx-#{$space} {
+    margin: 0 #{$space}rem !important;
+  }
+
+  .my-#{$space} {
+    margin: #{$space}rem 0 !important;
+  }
+
+  .px-#{$space} {
+    padding: 0 #{$space}rem !important;
+  }
+
+  .py-#{$space} {
+    padding: #{$space}rem 0 !important;
+  }
 }
 
 
@@ -115,4 +131,8 @@ $sides: (top, bottom, left, right);
 // align-items
 .align-items-center {
   align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
