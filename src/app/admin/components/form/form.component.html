@@ -1,28 +1,26 @@
-<!-- <form>
-
-</form> -->
-
-<div class="form-control">
-  <label for="username">Nombre de usuario</label>
-  <input type="text" id="username" />
-</div>
-<div class="form-control">
-  <label for="password">Contraseña</label>
-  <input type="password" id="password" />
-</div>
-<div class="form-control">
-  <label for="fullname">Nombre Completo</label>
-  <input type="text" id="fullname" />
-</div>
-<div class="form-control">
-  <label for="email">Correo</label>
-  <input type="text" id="email" />
-</div>
-<div class="form-control">
-  <label for="adress">Dirección</label>
-  <input type="text" id="address" />
-</div>
-<div class="align-items-center">
-  <input type="checkbox" id="enabled" class="pl-0 ml-0" />
-  <label for="enabled" class="">Habilitado</label>
-</div>
+<form [formGroup]="form" (submit)="validateSubmit()">
+  <div class="form-control">
+    <label for="username">Nombre de usuario</label>
+    <input formControlName="username" type="text" id="username" />
+  </div>
+  <div class="form-control">
+    <label for="password">Contraseña</label>
+    <input formControlName="password" type="password" id="password" />
+  </div>
+  <div class="form-control">
+    <label for="fullname">Nombre Completo</label>
+    <input formControlName="fullname" type="text" id="fullname" />
+  </div>
+  <div class="form-control">
+    <label for="email">Correo</label>
+    <input formControlName="email" type="text" id="email" />
+  </div>
+  <div class="form-control">
+    <label for="adress">Dirección</label>
+    <input formControlName="address" type="text" id="address" />
+  </div>
+  <div class="align-items-center">
+    <input formControlName="enabled" type="checkbox" id="enabled" class="pl-0 ml-0" />
+    <label for="enabled" class="">Habilitado</label>
+  </div>
+</form>

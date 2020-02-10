@@ -5,38 +5,20 @@
       <div class="decoratorTitle"></div>
     </div>
     <div class="col-6">
-      <app-button
-      [class]="'btn-primary'"
-      [text]="'Crear usuario'"
-      (customClick)="toggleShowModalCreate()"
-    ></app-button>
+      <app-button [class]="'btn-primary'" [text]="'Crear usuario'" (customClick)="toggleShowModalCreate()"></app-button>
     </div>
     <!-- src="https://users-administrator.firebaseapp.com//admin/list-users" -->
 
-    <iframe
-    #listUsers
-    src="http://localhost:5000/admin/list-users"
-    frameborder="0"
-    class=" col-12"
-    style="height: 80vh;"
-  ></iframe>
+    <iframe #listUsers src="http://localhost:5000/admin/list-users" frameborder="0" class=" col-12"
+      style="height: 80vh;"></iframe>
   </div>
 
 </section>
 
-<app-modal
-  *ngIf="modalActive"
-  (close)="toggleShowModal()"
-  [title]="currentModal.title"
->
-  <app-form content></app-form>
+<app-modal *ngIf="modalActive" (close)="toggleShowModal()" [title]="currentModal.title">
+  <app-form content (customSubmit)="do()"></app-form>
   <ng-container footer>
-    <app-button
-      [class]="'button btn-primary'"
-      [text]="currentModal.buttonText"
-      [disabled]="false"
-      (customClick)="do()"
-    ></app-button>
+    <app-button [class]="'button btn-primary'" [text]="currentModal.buttonText" [disabled]="false" (customClick)="do()">
+    </app-button>
   </ng-container>
 </app-modal>
-
