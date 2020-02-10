@@ -19,7 +19,13 @@ const routes: Routes = [
   },
   {
     path: "list-users",
-    component: UserListComponent
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        component: UserListComponent
+      }
+    ]
   }
 ];
 

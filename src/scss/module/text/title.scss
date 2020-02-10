@@ -3,3 +3,16 @@
 h1 {
   color: $color-black;
 }
+
+.text-underline {
+  text-decoration: underline;
+  text-decoration-color: $color-primary;
+}
+
+.decoratorTitle {
+  width: 10rem;
+  margin: 1rem 0 0;
+  border-bottom: 2px solid $color-primary;
+  border-radius: 2rem;
+  display: inline-flex;
+}
