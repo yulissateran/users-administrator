@@ -22,3 +22,20 @@
     <button [type]="button" (click)="enable(user.id)">habilite</button>
   </div>
 </div>
+
+<!-- <app-modal
+  *ngIf="modalActive"
+  (close)="toggleShowModal()"
+  [title]="'Editar usuario'"
+>
+  <app-form content></app-form>
+  <ng-container footer>
+    <app-button
+      [class]="'button btn-primary'"
+      [text]="'Crear'"
+      [disabled]="false"
+      (customClick)="enable(user.id)"
+    ></app-button>
+  </ng-container>
+</app-modal> -->
+

@@ -15,6 +15,7 @@ export class UserCardComponent implements OnInit {
   @Input() user: any; //user
   @Output() action: EventEmitter<UserAction> = new EventEmitter();
   isOpen: boolean = false;
+  modalActive:boolean =false;
   constructor() {}
 
   ngOnInit() {}
@@ -45,5 +46,8 @@ export class UserCardComponent implements OnInit {
 
   toggleShowMore(): void {
     this.isOpen = !this.isOpen;
+  }
+  toggleShowModal(){
+    this.modalActive = !this.modalActive;
   }
 }

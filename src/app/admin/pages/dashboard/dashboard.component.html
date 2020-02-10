@@ -8,7 +8,7 @@
       <app-button
       [class]="'btn-primary'"
       [text]="'Crear usuario'"
-      (customClick)="openModal()"
+      (customClick)="toggleShowModalCreate()"
     ></app-button>
     </div>
     <iframe
@@ -23,16 +23,17 @@
 
 <app-modal
   *ngIf="modalActive"
-  (close)="openModal()"
-  [title]="'Agregar usuario'"
+  (close)="toggleShowModal()"
+  [title]="currentModal.title"
 >
   <app-form content></app-form>
   <ng-container footer>
     <app-button
       [class]="'button btn-primary'"
-      [text]="'Crear'"
+      [text]="currentModal.buttonText"
       [disabled]="false"
-      (customClick)="crearUser()"
+      (customClick)="do()"
     ></app-button>
   </ng-container>
 </app-modal>
+

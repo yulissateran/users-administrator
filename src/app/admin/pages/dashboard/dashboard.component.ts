@@ -25,8 +25,7 @@ import { BehaviorSubject } from "rxjs";
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"]
 })
-export class DashboardComponent implements OnInit, AfterViewInit{
-
+export class DashboardComponent implements OnInit, AfterViewInit {
   public userForm: FormGroup;
   public iframeURL: string = LIST_USERS_DOMAIN + LIST_USERS_ROUTE;
   modalActive: boolean = false;
@@ -38,7 +37,7 @@ export class DashboardComponent implements OnInit, AfterViewInit{
       enabled: true,
       email: "cdc@jkasfhkjsf.com",
       adress: "",
-      id: '1'
+      id: "1"
     },
     {
       userName: "Anaflavia",
@@ -47,29 +46,46 @@ export class DashboardComponent implements OnInit, AfterViewInit{
       enabled: true,
       email: "cdc@Anaflavia.com",
       adress: "",
-      id: '2'
+      id: "2"
     }
   ]);
+  modals= {
+    create: {
+      title: "Crear Usuario",
+      buttonText: "Crear",
+    },
+    update: {
+      title: "Editar Usuario",
+      buttonText: "Guardar",
+    },
+  };
+  currentModal: { title: string , buttonText: string};
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
   constructor(
     private _fb: FormBuilder,
     private _viewContainerRef: ViewContainerRef
   ) {}
-  ngOnInit(){
+  ngOnInit() {
     // this.notifyToList()
     // this.users$.subscribe(resp=>this.notifyToList())
   }
   ngAfterViewInit(): void {
     console.log("ngAfterViewInit", this.users$);
 
-    this.notifyToList()
+    // this.notifyToList();
   }
   @HostListener("window:message", ["$event"])
   onMessage(event) {
     if (event.origin !== LIST_USERS_DOMAIN) return;
     const action: UserAction = event.data;
-    console.log("event action usuario: ", event, action);
-    this.handleUserAction(action);
+    console.log("event action usuario: ", event, action, action.type === ACTION_USER_UPDATE);
+    if (action.type === ACTION_USER_UPDATE) {
+      console.log('OPEN MODAL EDIT');
+      
+      this.toggleShowModalUpdate();
+    } else {
+      this.handleUserAction(action);
+    }
   }
 
   handleUserAction(action: UserAction) {
@@ -111,8 +127,8 @@ export class DashboardComponent implements OnInit, AfterViewInit{
   }
 
   notifyToList() {
-    console.log('notifyToList');
-  
+    console.log("notifyToList");
+
     // event.preventDefault();
     // if(this.userForm.valid){
     // console.log(
@@ -120,15 +136,25 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     //   this.userForm.value,
     //   this.iFrame.nativeElement.contentWindow.postMessage
     // );
-    console.log(this.iFrame, JSON.stringify(this.users$.value))
-    this.iFrame.nativeElement.contentWindow.postMessage(JSON.stringify(this.users$.value),
+    console.log(this.iFrame, JSON.stringify(this.users$.value));
+    this.iFrame.nativeElement.contentWindow.postMessage(
+      JSON.stringify(this.users$.value),
       this.iframeURL
     );
     // }
   }
 
-  openModal() {
+  toggleShowModalUpdate() {
+    this.currentModal = this.modals.update;
+    this.toggleShowModal()
+  }
+
+  toggleShowModal() {
     this.modalActive = !this.modalActive;
+  }
+  toggleShowModalCreate() {
+    this.currentModal = this.modals.create;
+    this.toggleShowModal();
   }
   crearUser() {
     console.log("CLICK: creeate user");
