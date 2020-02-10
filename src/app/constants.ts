@@ -25,3 +25,7 @@ export const INVALID_EMAIL_ERROR__DISPLAY_MESSAGE:string = 'El correo ingresado 
 
 export const DEFAULT_ERROR__DISPLAY_MESSAGE:string = 'Sucedió un error, por favor intente de nuevo más tarde';
 
+export const ACTION_USER_UPDATE:string = 'update';
+export const ACTION_USER_REMOVE:string = 'remove';
+export const ACTION_USER_ENABLE:string = 'enable';
+

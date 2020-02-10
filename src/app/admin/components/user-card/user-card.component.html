@@ -1,0 +1,24 @@
+<div class="card-user-info mb-1 mr-1 ml-1">
+  <div class="card-user-info-header" (click)="toggleShowMore()">
+    <div class="row">
+      <div class="col-6">
+        <h4>Nombre: {{ user.fullName }}</h4>
+      </div>
+      <div class="col-6 text-right">
+        <img
+          class="img-arrow-down"
+          [ngClass]="{ transformed: isOpen }"
+          src="./assets/img/arrow-down.svg"
+          alt="arrow-down"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="card-user-info-body" *ngIf="isOpen">
+    <div>{{ user.id }}</div>
+    <div>{{ user.email }}</div>
+    <button [type]="button" (click)="update(user.id)">edit</button>
+    <button [type]="button" (click)="remove(user.id)">delete</button>
+    <button [type]="button" (click)="enable(user.id)">habilite</button>
+  </div>
+</div>

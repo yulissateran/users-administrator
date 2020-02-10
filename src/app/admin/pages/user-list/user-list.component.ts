@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { User } from "src/app/core/models/user";
 import { CREATE_USERS_DOMAIN } from 'src/app/constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: "app-user-list",
@@ -11,7 +12,7 @@ export class UserListComponent implements OnInit {
 
   constructor() { }
 
-  public users: User[] = [
+  public users$: BehaviorSubject<User[]> = new BehaviorSubject([
     {
       userName: "yuli",
       password: "*68Hyt",
@@ -30,40 +31,26 @@ export class UserListComponent implements OnInit {
       adress: "",
       id: '2'
     }
-  ];
+  ])
   name: string;
   event: any;
-
-  // toggle
-  itemSelected = false;
-  itemSelectedID = '';
-
-  // modal
-  modalActive = false;
-
   ngOnInit() { }
 
   @HostListener("window:message", ["$event"])
   onMessage(event) {
+    // alert(event.data)
+    console.log("event charge users: ", event, event.data);
+
     if(event.origin !== CREATE_USERS_DOMAIN) return;
-    // console.log("event charge users: ", event);
-    this.name = event.data.name;
-    this.event = event;
+    console.log("event charge users: ", event, event.data);
+    this.users$.next(JSON.parse(event.data))
+    // this.name = event.data.name;
+    // this.event = event;
   }
 
-  updateUser(idUser: string){
-    // console.log('idUser: ', idUser)
-    window.parent.postMessage(idUser, CREATE_USERS_DOMAIN)
-  }
-
-  toggleShowList( id: string) {
-    if (!this.itemSelected) {
-      this.itemSelected = true;
-      this.itemSelectedID = id;
-    } else this.itemSelected = false;
-  }
-
-  openModal() {
-    this.modalActive = !this.modalActive;
+  sendAction($event){
+    console.log('ACTION RECEVED and sent',$event);
+    window.parent.postMessage($event, CREATE_USERS_DOMAIN)
+    // this.
   }
 }
