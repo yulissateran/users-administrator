@@ -1,4 +1,26 @@
-<div class="container-modal">
+<div class="modal" >
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" (click)="close.emit()">&times;</span>
+      <!-- <ng-content select="[title]"></ng-content> -->
+      <h2 class="text-center">{{title}}</h2>
+    </div>
+    <div class="modal-body">
+      <ng-content select="[content]"></ng-content>
+    </div>
+    <!-- <div class="modal-footer text-center"> -->
+    <div class="modal-footer">
+      <ng-content select="[footer]"></ng-content>
+
+      <!-- <button type="button" class="btn-primary">Aceptar</button> -->
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <div class="container-modal">
   <div class="modal">
     <div class="modal__header">
       <span>&times;</span>
@@ -10,4 +32,4 @@
     <div class="modal__footer">
       <ng-content select="[footer]"></ng-content>
     </div>
-  </div>
+  </div> -->

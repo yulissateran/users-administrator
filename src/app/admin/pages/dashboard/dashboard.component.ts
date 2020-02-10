@@ -11,6 +11,15 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 export class DashboardComponent  {
   public userForm: FormGroup;
   public iFrameURL: string =  LIST_USERS_DOMAIN + LIST_USERS_ROUTE;
+  name: string;
+  event: any;
+
+  // toggle
+  itemSelected = false;
+  itemSelectedID = '';
+
+  // modal
+  modalActive = false;
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
   constructor(private _fb: FormBuilder, private _viewContainerRef: ViewContainerRef) {
     // this.userForm = this.buildForm();
@@ -64,9 +73,7 @@ export class DashboardComponent  {
     // }
   }
 
-  openModal(){
-    
-    // ModalComponent
-
+  openModal() {
+    this.modalActive = !this.modalActive;
   }
 }

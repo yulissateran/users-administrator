@@ -38,6 +38,9 @@ export class UserListComponent implements OnInit {
   itemSelected = false;
   itemSelectedID = '';
 
+  // modal
+  modalActive = false;
+
   ngOnInit() { }
 
   @HostListener("window:message", ["$event"])
@@ -58,5 +61,9 @@ export class UserListComponent implements OnInit {
       this.itemSelected = true;
       this.itemSelectedID = id;
     } else this.itemSelected = false;
+  }
+
+  openModal() {
+    this.modalActive = !this.modalActive;
   }
 }
