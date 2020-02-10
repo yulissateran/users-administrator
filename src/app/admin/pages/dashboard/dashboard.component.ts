@@ -9,25 +9,27 @@ import {
 } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import {
-  LIST_USERS_DOMAIN,
   LIST_USERS_ROUTE,
   ACTION_USER_UPDATE,
   ACTION_USER_ENABLE,
-  ACTION_USER_REMOVE
+  ACTION_USER_REMOVE,
+  ACTION_INIT_LIST_USER,
+  ACTION_LOADED_IFRAME
 } from "src/app/constants";
-import { ModalComponent } from "src/app/admin/components/modal/modal.component";
+// import { ModalComponent } from "src/app/admin/components/modal/modal.component";
 import { UserAction } from "src/app/core/models/user-action";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject } from "rxjs";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"]
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
   public userForm: FormGroup;
-  public iframeURL: string = LIST_USERS_DOMAIN + LIST_USERS_ROUTE;
+  public iframeURL: string = environment.LIST_USERS_DOMAIN + LIST_USERS_ROUTE;
   modalActive: boolean = false;
   users$: BehaviorSubject<User[]> = new BehaviorSubject([
     {
@@ -49,7 +51,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       id: "2"
     }
   ]);
-  modals= {
+  modals = {
     create: {
       title: "Crear Usuario",
       buttonText: "Crear",
@@ -59,29 +61,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       buttonText: "Guardar",
     },
   };
-  currentModal: { title: string , buttonText: string};
+  currentModal: { title: string, buttonText: string };
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
   constructor(
     private _fb: FormBuilder,
     private _viewContainerRef: ViewContainerRef
-  ) {}
-  ngOnInit() {
-    // this.notifyToList()
-    // this.users$.subscribe(resp=>this.notifyToList())
-  }
-  ngAfterViewInit(): void {
-    console.log("ngAfterViewInit", this.users$);
+  ) { }
 
-    // this.notifyToList();
+  ngOnInit() {
   }
+
   @HostListener("window:message", ["$event"])
   onMessage(event) {
-    if (event.origin !== LIST_USERS_DOMAIN) return;
+    if (event.data.type === ACTION_LOADED_IFRAME) {
+      this.sendInitData();
+    }
+    if (event.origin !== environment.LIST_USERS_DOMAIN) return;
     const action: UserAction = event.data;
-    console.log("event action usuario: ", event, action, action.type === ACTION_USER_UPDATE);
     if (action.type === ACTION_USER_UPDATE) {
       console.log('OPEN MODAL EDIT');
-      
+
       this.toggleShowModalUpdate();
     } else {
       this.handleUserAction(action);
@@ -136,14 +135,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //   this.userForm.value,
     //   this.iFrame.nativeElement.contentWindow.postMessage
     // );
-    console.log(this.iFrame, JSON.stringify(this.users$.value));
-    this.iFrame.nativeElement.contentWindow.postMessage(
-      JSON.stringify(this.users$.value),
-      this.iframeURL
-    );
-    // }
-  }
 
+  }
+  sendInitData() {
+    console.log(environment.LIST_USERS_DOMAIN)
+    this.iFrame.nativeElement.contentWindow.postMessage(
+      { type: ACTION_INIT_LIST_USER, payload: this.users$.value },
+      environment.LIST_USERS_DOMAIN
+    );
+  }
   toggleShowModalUpdate() {
     this.currentModal = this.modals.update;
     this.toggleShowModal()
@@ -159,8 +159,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   crearUser() {
     console.log("CLICK: creeate user");
   }
-  do(){
-    
+  do() {
+
   }
 }
 

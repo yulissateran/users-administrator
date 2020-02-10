@@ -8,5 +8,7 @@ export const environment = {
     storageBucket: "users-administrator.appspot.com",
     messagingSenderId: "427198108126",
     appId: "1:427198108126:web:828e11f250fbc939984d4f"
-  }
+  },
+  LIST_USERS_DOMAIN: 'https://users-administrator.firebaseapp.com',
+  CREATE_USERS_DOMAIN: 'https://users-administrator.firebaseapp.com',
 };

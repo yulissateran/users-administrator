@@ -4,8 +4,8 @@ export const REGISTER_ROUTE: string = AUTH_MODULE_ROUTE +'/register';
 export const ADMIN_MODULE_ROUTE: string = '/admin';
 export const CREATE_USERS_ROUTE: string = ADMIN_MODULE_ROUTE+ '/create-users';
 export const LIST_USERS_ROUTE: string = ADMIN_MODULE_ROUTE+ '/list-users';
-export const LIST_USERS_DOMAIN: string = 'http://localhost:4200';
-export const CREATE_USERS_DOMAIN: string = 'http://localhost:4200';
+// export const LIST_USERS_DOMAIN: string = 'http://localhost:4200';
+// export const CREATE_USERS_DOMAIN: string = 'http://localhost:4200';
 export const USER_ADMIN_EMAIL:string = 'yulissa.lteran@gmail.com';
 export const USER_ADMIN_PASSWORD:string = 'YulissaT*@';
 
@@ -28,4 +28,7 @@ export const DEFAULT_ERROR__DISPLAY_MESSAGE:string = 'Sucedió un error, por fav
 export const ACTION_USER_UPDATE:string = 'update';
 export const ACTION_USER_REMOVE:string = 'remove';
 export const ACTION_USER_ENABLE:string = 'enable';
+
+export const ACTION_INIT_LIST_USER:string = 'initList';
+export const ACTION_LOADED_IFRAME:string = 'initList';
 
