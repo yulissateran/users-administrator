@@ -30,7 +30,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardComponent implements OnInit {
   public userForm: FormGroup;
   public iframeURL: string = environment.LIST_USERS_DOMAIN + LIST_USERS_ROUTE;
-  modalActive: boolean = false;
+  isActiveModal: boolean = false;
   users$: BehaviorSubject<User[]> = new BehaviorSubject([
     {
       username: "yuli",
@@ -118,6 +118,7 @@ export class DashboardComponent implements OnInit {
       return updatedUser;
     });
   }
+
   removeUser(users, { id }) {
     return users.filter(user => user.id !== id);
   }
@@ -135,7 +136,7 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleShowModal() {
-    this.modalActive = !this.modalActive;
+    this.isActiveModal = !this.isActiveModal;
   }
 
   toggleShowModalCreate() {
@@ -145,7 +146,18 @@ export class DashboardComponent implements OnInit {
 
   crearUser() {
   }
-  do() {
 
+  do(user) {
+    switch (this.currentModal.title) {
+      case this.modals.create.title:
+        const users = [user, ...this.users$.value];
+        this.users$.next(users)
+        break;
+      case this.modals.update.title:
+
+        break;
+      default:
+        break;
+    }
   }
 }

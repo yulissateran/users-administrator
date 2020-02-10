@@ -15,7 +15,7 @@
 
 </section>
 
-<app-modal *ngIf="modalActive" (close)="toggleShowModal()" [title]="currentModal.title">
+<app-modal *ngIf="isActiveModal" (close)="toggleShowModal()" [title]="currentModal.title">
   <app-form content (customSubmit)="do()"></app-form>
   <ng-container footer>
     <app-button [class]="'button btn-primary'" [text]="currentModal.buttonText" [disabled]="false" (customClick)="do()">

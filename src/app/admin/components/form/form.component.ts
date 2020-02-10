@@ -14,6 +14,8 @@ export class FormComponent implements OnInit {
   @Output() customSubmit: EventEmitter<User> = new EventEmitter()
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
+    console.log(this.form);
+    
   }
   buildForm() {
     return this._fb.group({
