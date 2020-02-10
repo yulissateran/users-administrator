@@ -3,3 +3,10 @@
    color: $color-red;
    font-weight: 600;
  }
+.border-error {
+  border-bottom:  $color-red 1px solid;
+
+}
+ .ng-invalid.ng-touched {
+   @extend .border-error
+ }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { passwordValidator } from 'src/app/core/validators/password.validator';
 import { User } from 'src/app/core/models/user';
@@ -10,8 +10,9 @@ import { User } from 'src/app/core/models/user';
 })
 export class FormComponent implements OnInit {
   form: FormGroup;
-  sent: boolean = false;
+  sentForm: boolean = false;
   @Output() customSubmit: EventEmitter<User> = new EventEmitter()
+  @Input() buttonText: string = 'button';
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
     console.log(this.form);
@@ -48,7 +49,9 @@ export class FormComponent implements OnInit {
   }
 
   validateSubmit() {
-    this.sent = true;
+    console.log(this.form);
+    
+    this.sentForm = true;
     if (this.form.valid) this.customSubmit.emit(this.form.value);
   }
 

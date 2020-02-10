@@ -1,14 +1,30 @@
 <form [formGroup]="form" (submit)="validateSubmit()">
   <div class="form-control">
-    <label for="username">Nombre de usuario</label>
+    <label for="username">Nombre de usuario <small class="text-error">*</small></label>
     <input formControlName="userName" type="text" id="username" />
   </div>
-  <div class="form-control">
-    <label for="password">Contraseña</label>
-    <input formControlName="password" type="password" id="password" />
+  <div *ngIf="form.controls.userName.errors  && sentForm">
+    <p class="text-error mt-1 text-center" *ngIf="form.controls.password.errors.minlength">El nombre de usuario
+      debe tener
+      6 a más
+      caracteres</p>
   </div>
   <div class="form-control">
-    <label for="fullname">Nombre Completo</label>
+    <label for="password">Contraseña <small class="text-error">*</small></label>
+    <input formControlName="password" type="password" id="password" />
+    <div *ngIf="form.controls.password.errors  && sentForm">
+      <p class="text-error mt-1 text-center" *ngIf="form.controls.password.errors.minlength">La contraseña
+        debe tener
+        6 a más
+        caracteres</p>
+      <p class="text-error mt-1 text-center" *ngIf="form.controls.password.errors.passwordIsUnsafe 
+      && !form.controls.password.errors.minlength">La contraseña debe tener al menos una letra
+        mayúscula y un caracter especial
+      </p>
+    </div>
+  </div>
+  <div class="form-control">
+    <label for="fullname">Nombre Completo <small class="text-error">*</small></label>
     <input formControlName="fullName" type="text" id="fullname" />
   </div>
   <div class="form-control">
@@ -22,10 +38,16 @@
   <div class="align-items-center">
     <input formControlName="enabled" type="checkbox" id="enabled" class="pl-0 ml-0" />
     <label for="enabled" class="">Habilitado</label>
+  </div>{{form.errors| json}}
+  <div *ngIf="form.invalid  && sentForm">
+    <p class="text-error mt-1 text-center" *ngIf="form.errors.required">
+      Completa los campos requeridos
+    </p>
   </div>
   <div class="text-center mt-2">
-    <app-button [class]="'button btn-primary'" 
-    [text]="'crear'" [disabled]="false">
-    </app-button>
+    <button class="button btn-primary" [disabled]="form.invalid">{{buttonText}}
+    </button>
+    <!-- <app-button [class]="'button btn-primary'" [text]="'crear'">
+    </app-button> -->
   </div>
 </form>

@@ -7,7 +7,8 @@
       <form [formGroup]="formLogin" (submit)="handleSubbmit(formLogin)" >
         <div class="form-control">
           <label for="email">Correo</label>
-          <input formControlName="email" type="text" id="email" />
+          <input formControlName="email" type="text" id="email" 
+           [ngClass]="{ 'border-error':formLogin.controls.email.invalid && sent}"/>
         </div>
         <div class="form-control">
           <label for="password">Contraseña</label>

@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LayoutComponent } from "./layout/layout.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { FormComponent } from "./components/form/form.component";
-import { ButtonComponent } from "./components/button/button.component";
 import { ModalComponent } from './components/modal/modal.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 
@@ -17,7 +16,6 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     LayoutComponent,
     DashboardComponent,
     FormComponent,
-    ButtonComponent,
     ModalComponent,
     UserCardComponent
   ],
