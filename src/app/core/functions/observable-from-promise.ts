@@ -1,19 +1,23 @@
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
 export const fromPromise = (
   promise,
   handleResponse,
   handleError
-) =>{
- return new Observable(subscriptor => {
+): Observable<any> => {
+  return new Observable(subscriptor => {
     promise
-      .then(response => 
-        {
-          return subscriptor.next(handleResponse ? handleResponse(response) : response);
+      .then(
+        response => {
+          return subscriptor.next(
+            handleResponse ? handleResponse(response) : response
+          );
         },
-         error =>   subscriptor.error(handleError? handleError(error): error))
+        error => subscriptor.error(handleError ? handleError(error) : error)
+      )
       .catch(error => {
-        console.log('ERROR PROMISE', error)
-        return subscriptor.error(handleError? handleError(error): error)});
+        console.log("ERROR PROMISE", error);
+        return subscriptor.error(handleError ? handleError(error) : error);
+      });
   });
-}
+};

@@ -4,7 +4,7 @@
       <h1 class="text-center">Iniciar sesión</h1>
     </div>
     <div class="card-auth__body">
-      <form [formGroup]="formLogin" (submit)="login()" >
+      <form [formGroup]="formLogin" (submit)="handleSubbmit(formLogin)" >
         <div class="form-control">
           <label for="email">Correo</label>
           <input formControlName="email" type="text" id="email" />

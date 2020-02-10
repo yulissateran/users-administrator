@@ -34,18 +34,16 @@ export class AuthService {
   //   );
   // }
 
-  login({ email, password }: { email: string; password: string }) {
+  login({ email, password }: { email: string; password: string }):Observable<any> {
     return fromPromise(
       this._aFireAuth.auth.signInWithEmailAndPassword(email, password),
-      null,
+      this.handleResponseLogin,
       this.handleErrorLogin
     );
   }
 
-  private redirectCreateUsers(user) {
-    console.log('NO ERROR,:', user)
-    //  this._router.navigate([CREATE_USERS_ROUTE]);
-     return user;
+  private redirectCreateUsers() {
+    return this._router.navigate([CREATE_USERS_ROUTE]);
   }
 
   logOut(): Promise<any> {
@@ -81,9 +79,15 @@ export class AuthService {
       case INVALID_EMAIL_ERROR_CODE:
         errorDisplayMessage = INVALID_EMAIL_ERROR__DISPLAY_MESSAGE;
         break;
-        default:
-        errorDisplayMessage = DEFAULT_ERROR__DISPLAY_MESSAGE;
+        // default:
+        // errorDisplayMessage = DEFAULT_ERROR__DISPLAY_MESSAGE;
     }
     return errorDisplayMessage;
   }
+
+  handleResponseLogin = (response: any) => {
+    this.redirectCreateUsers();
+    return response
+  }
+
 }
