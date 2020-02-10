@@ -10,13 +10,13 @@ import { User } from 'src/app/core/models/user';
 })
 export class FormComponent implements OnInit {
   form: FormGroup;
-
+  sent: boolean = false;
   @Output() customSubmit: EventEmitter<User> = new EventEmitter()
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
     console.log(this.form);
-    
   }
+
   buildForm() {
     return this._fb.group({
       userName: [null, Validators.required],
@@ -44,10 +44,11 @@ export class FormComponent implements OnInit {
   // email?:string,
   // adress?: string,
 
-
   ngOnInit() {
   }
+
   validateSubmit() {
+    this.sent = true;
     if (this.form.valid) this.customSubmit.emit(this.form.value);
   }
 
