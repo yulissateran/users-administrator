@@ -5,6 +5,7 @@ import {
   ACTION_USER_REMOVE,
   ACTION_USER_ENABLE
 } from "src/app/constants";
+import { User } from 'firebase';
 
 @Component({
   selector: "app-user-card",
@@ -15,10 +16,11 @@ export class UserCardComponent implements OnInit {
   @Input() user: any; //user
   @Output() action: EventEmitter<UserAction> = new EventEmitter();
   isOpen: boolean = false;
-  modalActive:boolean =false;
-  constructor() {}
+  modalActive: boolean = false;
 
-  ngOnInit() {}
+  constructor() { }
+
+  ngOnInit() { }
 
   update(id): void {
     const actionUpdate: UserAction = {
@@ -47,7 +49,7 @@ export class UserCardComponent implements OnInit {
   toggleShowMore(): void {
     this.isOpen = !this.isOpen;
   }
-  toggleShowModal(){
+  toggleShowModal() {
     this.modalActive = !this.modalActive;
   }
 }

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  endPoint: 'http://localhost:4200/',
   firebase: {
     apiKey: "AIzaSyA9fqNnW88TvbW4XkF-wGzsySuRIlkjGp8",
     authDomain: "users-administrator.firebaseapp.com",

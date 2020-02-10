@@ -19,6 +19,8 @@ import { ModalComponent } from "src/app/admin/components/modal/modal.component";
 import { UserAction } from "src/app/core/models/user-action";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject } from "rxjs";
+import { environment } from 'src/environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: "app-dashboard",
@@ -61,13 +63,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   };
   currentModal: { title: string , buttonText: string};
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
+
+  endPoint: any = '';
+
   constructor(
     private _fb: FormBuilder,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
     // this.notifyToList()
-    // this.users$.subscribe(resp=>this.notifyToList())
+    // this.users$.subscribe(resp=>this.notifyToList()) 
+    this.endPoint = this.sanitizer.bypassSecurityTrustResourceUrl(`${environment.endPoint}admin/list-users`)
   }
   ngAfterViewInit(): void {
     console.log("ngAfterViewInit", this.users$);
@@ -146,7 +153,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   toggleShowModalUpdate() {
     this.currentModal = this.modals.update;
-    this.toggleShowModal()
+    this.toggleShowModal();
   }
 
   toggleShowModal() {

@@ -12,10 +12,10 @@
     ></app-button>
     </div>
     <!-- src="https://users-administrator.firebaseapp.com//admin/list-users" -->
-
+    <!-- src="http://localhost:4200/admin/list-users" -->
     <iframe
     #listUsers
-    src="http://localhost:4200/admin/list-users"
+    [src]="endPoint"
     frameborder="0"
     class=" col-12"
     style="height: 80vh;"
