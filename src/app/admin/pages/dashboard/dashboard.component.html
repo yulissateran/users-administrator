@@ -1,0 +1,28 @@
+<section class="container">
+  <!-- submenu -->
+  <div class="row mt-2 text-center align-items-center">
+    <div class="col-6">
+      <h2 class="">Lista de usuarios</h2>
+      <div class="decoratorTitle"></div>
+    </div>
+    <div class="col-6">
+      <button class="btn-primary" type="button">Crear usuario</button>
+    </div>
+  </div>
+
+  <iframe
+    #listUsers
+    src="http://localhost:4200/admin/list-users"
+    frameborder="0"
+    class="container-user-info container-user-info-size"
+  ></iframe>
+</section>
+
+<app-modal>
+  <div content>is my content</div>
+
+  <div footer>
+    <button type="button">Editar</button>
+    <button type="button">Cancelar</button>
+  </div>
+</app-modal>

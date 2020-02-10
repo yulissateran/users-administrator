@@ -7,7 +7,6 @@ import {
   redirectLoggedInTo
 } from "@angular/fire/auth-guard";
 import { LOGIN_ROUTE, LIST_USERS_ROUTE } from "./constants";
-import { LayoutComponent } from "./admin/pages/layout/layout.component";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([LOGIN_ROUTE]);
 const redirectLoggedInToAdmin = () => redirectLoggedInTo([LIST_USERS_ROUTE]);

@@ -1,0 +1,81 @@
+.container-modal  {
+  z-index: 1000;
+ position: fixed;
+ height: 100vh;
+ width: 100vw;
+ background-color: rgba(44, 49, 67, 0.35);
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.modal {
+ background-color: white;
+ max-width: 335px;
+ width: 100%;
+ height: auto;
+ border-radius: 3px;
+ padding: 10px 15px;
+ margin: 0 5px;
+}
+.modal__header span {
+ cursor: pointer;
+ position: relative;
+ line-height: 0.6;
+ font-size: 45px;
+ margin-left: -5px;
+ top: 5px;
+}
+.modal__body {
+ padding: 10px 17px 12px 17px;
+}
+.modal .icon {
+ height: 85px;
+ width: 105px;
+}
+.modal__body .modal__body--title {
+//  @extend .light-title;
+ margin-top: 13px;
+}
+.modal__body p {
+ margin-top: 3px;
+ line-height: 1.2;
+}
+.modal__footer {
+ display: flex;
+ flex-direction: column;
+}
+
+.modal__footer button {
+//  @extend .base-button;
+}
+
+.modal__footer .change-default {
+//  @extend .main-button;
+}
+
+.cancel-change-default {
+//  @extend .secondary-button;
+}
+// @media only screen and (min-width: map-get($breakpoints, sm)) {
+//  .modal {
+//  padding: 10px 25px 25px 25px;
+//  }
+//  .modal__footer {
+//    flex-direction: row;
+//  }
+//  .modal__footer button:first-child {
+//    margin-right: 15px;
+//  }
+//  .modal__body {
+//    padding-left: 0;
+//    padding-right: 0;
+//  }
+//  .modal {
+//    max-width: 400px;
+//  }
+// }

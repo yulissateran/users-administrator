@@ -10,7 +10,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
-import { LayoutComponent } from './admin/pages/layout/layout.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -26,7 +25,7 @@ describe('AppComponent', () => {
         CoreModule
       ],
       declarations: [
-        AppComponent, LayoutComponent
+        AppComponent 
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/users-administrator' }

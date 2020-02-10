@@ -2,8 +2,8 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { UserFormComponent } from "./components/user-form/user-form.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
-import { LayoutComponent } from './pages/layout/layout.component';
-// import { LayoutComponent } from "../layout/layout.component";
+import { LayoutComponent } from './layout/layout.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -12,20 +12,14 @@ const routes: Routes = [
     children: [
       {
         path: "create-users",
-        component: UserFormComponent
+        component: DashboardComponent
       },
       
     ]
   },
   {
     path: "list-users",
-    component: LayoutComponent,
-    children: [
-      {
-        path: '',
         component: UserListComponent
-      }
-    ]
   }
 ];
 
