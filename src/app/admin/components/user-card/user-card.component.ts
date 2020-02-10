@@ -20,10 +20,10 @@ export class UserCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  update(id, updatedUser): void {
+  update(id): void {
     const actionUpdate: UserAction = {
       type: ACTION_USER_UPDATE,
-      payload: { id, updatedUser }
+      payload: { id }
     };
     this.action.emit(actionUpdate);
   }

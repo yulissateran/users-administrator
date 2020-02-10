@@ -159,6 +159,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   crearUser() {
     console.log("CLICK: creeate user");
   }
+  do(){
+    
+  }
 }
 
 // this.userForm = this.buildForm();

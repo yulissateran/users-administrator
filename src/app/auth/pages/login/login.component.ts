@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   isValidForm = form => form.valid;
 
-  // goRegister() {
+  goRegister() {
   //   this._router.navigate([REGISTER_ROUTE]);
-  // }
+  }
 }
