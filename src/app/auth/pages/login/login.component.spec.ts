@@ -18,7 +18,7 @@ import { throwError, of } from "rxjs";
 import { UserMock } from "src/mocks/user-mock";
 import { asyncError } from 'src/app/core/functions/async-error';
 
-fdescribe("LoginComponent", () => {
+describe("LoginComponent", () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   const getAuthSpy = () => jasmine.createSpyObj("AuthService", ["login"]);

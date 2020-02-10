@@ -63,29 +63,26 @@ export class DashboardComponent implements OnInit {
   };
   currentModal: { title: string, buttonText: string };
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
-  constructor(
-    private _fb: FormBuilder,
-    private _viewContainerRef: ViewContainerRef
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   @HostListener("window:message", ["$event"])
-  onMessage(event) {
-    if (event.data.type === ACTION_LOADED_IFRAME) {
-      this.sendInitData();
-    }
+  handleMessage(event) {
     if (event.origin !== environment.LIST_USERS_DOMAIN) return;
     const action: UserAction = event.data;
+    if (action.type === ACTION_LOADED_IFRAME) {
+      this.sendInitData();
+    }
     if (action.type === ACTION_USER_UPDATE) {
-      console.log('OPEN MODAL EDIT');
-
       this.toggleShowModalUpdate();
     } else {
       this.handleUserAction(action);
     }
   }
+
+
 
   handleUserAction(action: UserAction) {
     let users = this.users$.value;
@@ -125,25 +122,13 @@ export class DashboardComponent implements OnInit {
     return users.filter(user => user.id !== id);
   }
 
-  notifyToList() {
-    console.log("notifyToList");
-
-    // event.preventDefault();
-    // if(this.userForm.valid){
-    // console.log(
-    //   "user: ",
-    //   this.userForm.value,
-    //   this.iFrame.nativeElement.contentWindow.postMessage
-    // );
-
-  }
   sendInitData() {
-    console.log(environment.LIST_USERS_DOMAIN)
     this.iFrame.nativeElement.contentWindow.postMessage(
       { type: ACTION_INIT_LIST_USER, payload: this.users$.value },
       environment.LIST_USERS_DOMAIN
     );
   }
+
   toggleShowModalUpdate() {
     this.currentModal = this.modals.update;
     this.toggleShowModal()
@@ -152,12 +137,13 @@ export class DashboardComponent implements OnInit {
   toggleShowModal() {
     this.modalActive = !this.modalActive;
   }
+
   toggleShowModalCreate() {
     this.currentModal = this.modals.create;
     this.toggleShowModal();
   }
+
   crearUser() {
-    console.log("CLICK: creeate user");
   }
   do() {
 
