@@ -14,6 +14,10 @@ Para los estilos se usó vanilla CSS paara mayor flexibilidad en el diseño.
 
 - Se uso FirebaseAuth para la autenticación(login) y se creó un mock de la clase para los tests;
 
+## Instalación
+Tener instalado Node.js y NPM.
+Ejecutar el comando `npm i` para instalar las dependencias de la aplicación.
+
 ## Correr servidor localmente
 
 Ejecutar el comando `ng serve` donde se levantará la aplicación en el puerto `http://localhost:4200/`.
@@ -26,8 +30,8 @@ Ejecutar el comando `ng build --prod` para construir el proyecto. Donde después
 
 Ejecutar el comando `ng test` y para ver el coverage de los test ejecutar el comando `ng test --code-coverage`.
 
-El enunciado a desarrollar fue el siguiente:
 
+El enunciado a desarrollar fue el siguiente:
 
 Requerimiento:
 
