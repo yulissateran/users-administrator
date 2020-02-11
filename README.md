@@ -15,8 +15,10 @@ Para los estilos se usó vanilla CSS paara mayor flexibilidad en el diseño.
 - Se uso FirebaseAuth para la autenticación(login) y se creó un mock de la clase para los tests;
 
 ## Instalación
-Tener instalado Node.js y NPM.
-Ejecutar el comando `npm i` para instalar las dependencias de la aplicación.
+
+Importante:
+1 Tener instalado Node.js y NPM.
+2 Ejecutar el comando `npm i` para instalar las dependencias de la aplicación.
 
 ## Correr servidor localmente
 
