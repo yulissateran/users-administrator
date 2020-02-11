@@ -10,13 +10,15 @@ import { BehaviorSubject, Subscription } from "rxjs";
   styleUrls: ["./modal.component.scss"]
 })
 export class ModalComponent implements OnInit {
+
   @Input() title: string;
   @Input() buttonText: string;
   @Input() user$: BehaviorSubject<any>;
   @Output() close: EventEmitter<null> = new EventEmitter(null);
+  @Output() customSubmit: EventEmitter<User> = new EventEmitter();
   form: FormGroup;
   sentForm: boolean;
-  @Output() customSubmit: EventEmitter<User> = new EventEmitter();
+
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
   }
@@ -34,10 +36,10 @@ export class ModalComponent implements OnInit {
       ],
       fullname: [
         null,
-        Validators.compose([Validators.required, Validators.minLength(10)])
+        Validators.compose([Validators.required, Validators.minLength(8)])
       ],
       enabled: [true, Validators.required],
-      email: null,
+      email: [null, Validators.email],
       address: null
     });
   }

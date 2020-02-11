@@ -20,26 +20,17 @@
       <span class="ml-1"><img width="20px" src="./assets/img/eye.svg" alt="eye"></span>
     </div>
     <div class="mt-1">Estado: {{user.enabled ? 'HABILITADO': 'INHABILITADO'}}</div>
-    <div class="card-user-info-footer mt-1">
+    <div class="text-center text-error text-error-form mt-1" *ngIf="removeSelected">
+      <div>¿Estás seguro de eliminar el usuario?</div>
+      <div class="row mt-1">
+        <div class="col-6"><button class="btn-primary" type="button" (click)="showConfirmRemoveUser(false)">No</button></div>
+        <div class="col-6"><button class="btn-warning" type="button" (click)="remove(user.id)">Sí</button></div>
+      </div>
+    </div>
+    <div class="card-user-info-footer mt-1" *ngIf="!removeSelected">
       <button class="btn-primary mx-1" type="button" (click)="update(user.id)">Editar</button>
-      <button class="btn-primary mx-1" type="button" (click)="remove(user.id)">Eliminar</button>
+      <button class="btn-primary mx-1" type="button" (click)="showConfirmRemoveUser(true)">Eliminar</button>
       <button class="btn-primary mx-1" type="button" (click)="enable(user.id)">{{user.enabled ?  'Inhabilitar': 'Habilitar'}}</button>
     </div>
   </div>
 </div>
-
-<!-- <app-modal
-  *ngIf="modalActive"
-  (close)="toggleShowModal()"
-  [title]="'Editar usuario'"
->
-  <app-form content></app-form>
-  <ng-container footer>
-    <app-button
-      [class]="'button btn-primary'"
-      [text]="'Crear'"
-      [disabled]="false"
-      (customClick)="enable(user.id)"
-    ></app-button>
-  </ng-container>
-</app-modal> -->
