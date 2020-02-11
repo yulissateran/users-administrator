@@ -4,7 +4,7 @@
       <h1 class="text-center">Iniciar sesión</h1>
     </div>
     <div class="card-auth__body">
-      <form [formGroup]="formLogin" (submit)="handleSubbmit(formLogin)">
+      <form [formGroup]="formLogin">
         <div class="form-control">
           <label for="email">Correo</label>
           <input formControlName="email" type="text" id="email"
@@ -20,7 +20,7 @@
           <div class="loading"></div>
         </div>
         <div class="text-center mt-2" *ngIf="!isLoading">
-          <button class="btn-primary">Iniciar sesión</button>
+          <button type="button" class="btn-primary" (click)="handleSubbmit(formLogin)">Iniciar sesión</button>
         </div>
       </form>
     </div>

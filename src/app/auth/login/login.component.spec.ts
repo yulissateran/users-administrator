@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { Router } from "@angular/router";
-import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { CommonModule, APP_BASE_HREF } from "@angular/common";
 
 import { LoginComponent } from "./login.component";
@@ -114,11 +114,22 @@ fdescribe("LoginComponent", () => {
     component.formLogin.setValue(invalidPasswordUser);
     component.formLogin.updateValueAndValidity();
     component.sendLogin(component.formLogin.value).subscribe(
-      response => {},
+      response => { },
       error => {
         expect(component.errorAuth).toEqual(WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE);
         done();
       }
     );
   });
+
+  it('handleSubbmit()', () => {
+    const form: FormGroup = new FormGroup({
+      first: new FormControl(USER_ADMIN_EMAIL, Validators.required),
+      last: new FormControl(USER_ADMIN_PASSWORD, Validators.required),
+    });
+    component.handleSubbmit(form);
+    component.sendLogin(form.value).subscribe(response => {
+      expect(component.handleSubbmit(form)).toHaveBeenCalled();
+    });
+  })
 });
