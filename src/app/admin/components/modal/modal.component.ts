@@ -47,9 +47,9 @@ export class ModalComponent implements OnInit {
   }
 
   setForm(user$?): Subscription {
-    return this.user$.subscribe(user$ => {
-      if (user$) {
-        this.form.patchValue(user$);
+    return this.user$.subscribe(user => {
+      if (user) {
+        this.form.patchValue(user);
       } else {
         this.form.reset();
         this.form.patchValue(new User());
