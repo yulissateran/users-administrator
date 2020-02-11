@@ -16,7 +16,8 @@ import {
   TEXT_BUTTON__MODAL_CREATE,
   TITLE_MODAL_CREATE,
   ANY_ACTION,
-  ACTION_LOADED_IFRAME
+  ACTION_LOADED_IFRAME,
+  ACTION_SEND_USERS_TO_IFRAME
 } from "src/app/constants";
 import { UserAction } from "src/app/core/clases/user-action";
 import { Modal } from "src/app/core/clases/modal";
@@ -46,7 +47,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handlePostMessage() should return an Error object whe the domain is diferent to: " +
-      environment.APP_DOMAIN,
+    environment.APP_DOMAIN,
     () => {
       const errorPostMessage = component.handlePostMessage(
         new postMessageEvent(INCORRECT_DOMAIN_IFRAME, new UserAction("", ""))
@@ -59,7 +60,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handlePostMessage() should set currentModal as updateModal when it's called with an action of type:  " +
-      ACTION_USER_UPDATE,
+    ACTION_USER_UPDATE,
     () => {
       const actionUpdate = new UserAction(ACTION_USER_UPDATE, {
         id: 2344234342
@@ -74,7 +75,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handlePostMessage() should'n change users$ when the action is :  " +
-      ACTION_LOADED_IFRAME,
+    ACTION_LOADED_IFRAME,
     () => {
       const usersBeforePostMessage = component.users$.value;
       const actionLoadedIframe = new UserAction(ACTION_LOADED_IFRAME, {
@@ -90,7 +91,7 @@ fdescribe("DashboardComponent", () => {
   );
   it(
     "handlePostMessage() should set users$ with the same value when the action don't match with the cases contempleds:  " +
-      ANY_ACTION,
+    ANY_ACTION,
     () => {
       const usersBeforePostMessage = component.users$.value;
       const actionUpdate = new UserAction(ANY_ACTION, {
@@ -104,7 +105,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handleUserAction() should remove the selected user when receive the action:  " +
-      ACTION_USER_REMOVE,
+    ACTION_USER_REMOVE,
     () => {
       const users: User[] = UsersMock.filter(user => user.id !== 1);
       const actionRemove = new UserAction(ACTION_USER_REMOVE, { id: 1 });
@@ -115,7 +116,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handleUserAction() should change the property 'enable' to the selected user:  " +
-      ACTION_USER_ENABLE,
+    ACTION_USER_ENABLE,
     () => {
       const actionEnable = new UserAction(ACTION_USER_ENABLE, { id: 2 });
       component.handleUserAction(component.users$.value, actionEnable);
@@ -126,7 +127,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handleUserAction() should add one user to list of users when receive the action:  " +
-      ACTION_CREATE_USER,
+    ACTION_CREATE_USER,
     () => {
       const actionCreate = new UserAction(ACTION_CREATE_USER, "");
       const idNewUser = Date.now();
@@ -157,7 +158,7 @@ fdescribe("DashboardComponent", () => {
 
   it(
     "handleUserAction() should return the same users when the action don't make match with the actions contempled:  " +
-      ANY_ACTION,
+    ANY_ACTION,
     () => {
       const users = UsersMock;
       const anyAction = new UserAction(ANY_ACTION, {
@@ -217,8 +218,30 @@ fdescribe("DashboardComponent", () => {
   });
 
   it("sendDataToIframe() should return true if iFrame exist:  ", () => {
-    // component.iFrame = null;
     expect(component.sendDataToIframe(UsersMock)).toEqual(true);
   });
+  it("sendDataToIframe() should return true if iFrame exist:  ", () => {
+    component.iFrame = {
+      nativeElement: {
+        contentWindow: {
+          postMessage: jasmine.createSpy()
+        }
+      }
+    }
+    component.sendDataToIframe(UsersMock)
+    expect(component.iFrame.nativeElement.contentWindow.postMessage).toHaveBeenCalledWith(
+      new UserAction(ACTION_SEND_USERS_TO_IFRAME, UsersMock), environment.APP_DOMAIN);
+  });
+
+  // sendDataToIframe(users):boolean {
+  //   if(!this.iFrame) return false;
+  //   if (this.iFrame) {
+  //      this.iFrame.nativeElement.contentWindow.postMessage(
+  //       new UserAction(ACTION_SEND_USERS_TO_IFRAME, users),
+  //       environment.APP_DOMAIN
+  //     );
+  //     return true;
+  //   }
+  // }
 
 });
