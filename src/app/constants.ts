@@ -30,6 +30,6 @@ export const ACTION_USER_REMOVE:string = 'remove';
 export const ACTION_USER_ENABLE:string = 'enable';
 export const ACTION_CREATE_USER:string = 'create';
 
-export const ACTION_INIT_LIST_USER:string = 'initList';
+export const ACTION_SEND_USERS_TO_IFRAME:string = 'sendUsersToIframe';
 export const ACTION_LOADED_IFRAME:string = 'initList';
 

@@ -7,13 +7,12 @@ import {
   ViewContainerRef,
   AfterViewInit
 } from "@angular/core";
-import { FormGroup, FormBuilder } from "@angular/forms";
 import {
   LIST_USERS_ROUTE,
   ACTION_USER_UPDATE,
   ACTION_USER_ENABLE,
   ACTION_USER_REMOVE,
-  ACTION_INIT_LIST_USER,
+  ACTION_SEND_USERS_TO_IFRAME,
   ACTION_LOADED_IFRAME,
   ACTION_CREATE_USER
 } from "src/app/constants";
@@ -48,18 +47,18 @@ export class DashboardComponent implements OnInit {
   @HostListener("window:message", ["$event"])
   handleMessage({
     origin,
-    data: action
+    data
   }: {
     origin: string;
     data: UserAction;
   }) {
     if (origin !== environment.APP_DOMAIN) return;
-    this.currentAction$.next(action);
+    const action = data;
     const currentUsers = this.users$.value;
+    this.currentAction$.next(action);
     if (action.type === ACTION_LOADED_IFRAME) {
       this.sendDataToIframe(currentUsers);
-    }
-    if (action.type === ACTION_USER_UPDATE) {
+    } else if (action.type === ACTION_USER_UPDATE) {
       this.toggleShowModalUpdate(this.getSelectedUser(currentUsers, action.payload.id));
     } else {
       this.handleUserAction(currentUsers, action);
@@ -94,6 +93,11 @@ export class DashboardComponent implements OnInit {
       update: new Modal("Editar Usuario", "Guardar")
     };
   }
+  sendDataToIframe(users) {
+    this.iFrame.nativeElement.contentWindow.postMessage(new UserAction(ACTION_SEND_USERS_TO_IFRAME,users),
+      environment.APP_DOMAIN);
+  }
+
 
   handleUserAction(users, action: UserAction, fromModalUser?) {
     let modifiedUsers = users;
@@ -122,15 +126,6 @@ export class DashboardComponent implements OnInit {
     this.users$.next(modifiedUsers);
   }
 
-
-
-  sendDataToIframe(users) {
-    this.iFrame.nativeElement.contentWindow.postMessage(
-      { type: ACTION_INIT_LIST_USER, payload: users },
-      environment.APP_DOMAIN
-    );
-  }
-
   toggleShowModalUpdate(user) {
     this.currentUser$.next(user);
     this.currentModal = this.modals.update;
@@ -152,10 +147,10 @@ export class DashboardComponent implements OnInit {
     switch (this.currentModal.title) {
       case this.modals.create.title:
         this.currentAction$.next(new UserAction(ACTION_CREATE_USER, user));
-        this.handleUserAction(this.currentAction$.value, user);
+        this.handleUserAction(this.users$.value,this.currentAction$.value, user);
         break;
       case this.modals.update.title:
-        this.handleUserAction(this.currentAction$.value, user);
+        this.handleUserAction(this.users$.value, this.currentAction$.value, user);
         break;
     }
   }
