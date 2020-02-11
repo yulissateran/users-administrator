@@ -14,11 +14,11 @@ Para los estilos se usó vanilla CSS paara mayor flexibilidad en el diseño.
 
 - Se uso FirebaseAuth para la autenticación(login) y se creó un mock de la clase para los tests;
 
-##Accesos para probar login: 
+## Accesos para probar login: 
 Usuario: yulissa.lteran@gmail.com
 Contraseña: YulissaT*@
 
-##Link de producción: 
+## Link de producción: 
 
  https://users-administrator.firebaseapp.com/admin/create-users
 
