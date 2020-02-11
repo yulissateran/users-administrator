@@ -15,8 +15,8 @@ export const environment = {
     messagingSenderId: "427198108126",
     appId: "1:427198108126:web:828e11f250fbc939984d4f"
   },
-  APP_DOMAIN: 'http://localhost:5000',
-  IFRAME_ROUTE:'http://localhost:5000' + LIST_USERS_ROUTE ,
+  APP_DOMAIN: ' http://localhost:4200/ ',
+  IFRAME_ROUTE:' http://localhost:4200/ ' + LIST_USERS_ROUTE ,
 };
 
 /*
