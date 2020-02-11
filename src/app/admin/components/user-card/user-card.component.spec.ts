@@ -7,7 +7,7 @@ import {
   ACTION_USER_ENABLE
 } from "src/app/constants";
 
-fdescribe("UserCardComponent", () => {
+describe("UserCardComponent", () => {
   let component: UserCardComponent;
   let fixture: ComponentFixture<UserCardComponent>;
 

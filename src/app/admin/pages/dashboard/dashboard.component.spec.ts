@@ -24,10 +24,11 @@ import { Modal } from "src/app/core/clases/modal";
 import { User } from "src/app/core/clases/user";
 import { UsersMock } from "src/mocks/users-mock";
 
-fdescribe("DashboardComponent", () => {
+describe("DashboardComponent", () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-
+  let selectedUser: User;
+  let idSelectedUser: number;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, ModalComponent],
@@ -38,6 +39,10 @@ fdescribe("DashboardComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
+    const users = UsersMock;
+    selectedUser = users[0]
+    idSelectedUser = users[0].id;
+    component.users$.next(users);
     fixture.detectChanges();
   });
 
@@ -63,7 +68,7 @@ fdescribe("DashboardComponent", () => {
     ACTION_USER_UPDATE,
     () => {
       const actionUpdate = new UserAction(ACTION_USER_UPDATE, {
-        id: 2344234342
+        id: idSelectedUser
       });
       const event = new postMessageEvent(environment.APP_DOMAIN, actionUpdate);
       component.handlePostMessage(event);
@@ -78,9 +83,7 @@ fdescribe("DashboardComponent", () => {
     ACTION_LOADED_IFRAME,
     () => {
       const usersBeforePostMessage = component.users$.value;
-      const actionLoadedIframe = new UserAction(ACTION_LOADED_IFRAME, {
-        id: 2344234342
-      });
+      const actionLoadedIframe = new UserAction(ACTION_LOADED_IFRAME, '');
       const event = new postMessageEvent(
         environment.APP_DOMAIN,
         actionLoadedIframe
@@ -95,7 +98,7 @@ fdescribe("DashboardComponent", () => {
     () => {
       const usersBeforePostMessage = component.users$.value;
       const actionUpdate = new UserAction(ANY_ACTION, {
-        id: 2344234342
+        id: idSelectedUser
       });
       const event = new postMessageEvent(environment.APP_DOMAIN, actionUpdate);
       component.handlePostMessage(event);
@@ -107,8 +110,8 @@ fdescribe("DashboardComponent", () => {
     "handleUserAction() should remove the selected user when receive the action:  " +
     ACTION_USER_REMOVE,
     () => {
-      const users: User[] = UsersMock.filter(user => user.id !== 1);
-      const actionRemove = new UserAction(ACTION_USER_REMOVE, { id: 1 });
+      const users: User[] = UsersMock.filter(user => user.id !== idSelectedUser);
+      const actionRemove = new UserAction(ACTION_USER_REMOVE, { id: idSelectedUser });
       component.handleUserAction(component.users$.value, actionRemove);
       expect(component.users$.value).toEqual(users);
     }
@@ -118,10 +121,10 @@ fdescribe("DashboardComponent", () => {
     "handleUserAction() should change the property 'enable' to the selected user:  " +
     ACTION_USER_ENABLE,
     () => {
-      const actionEnable = new UserAction(ACTION_USER_ENABLE, { id: 2 });
+      const actionEnable = new UserAction(ACTION_USER_ENABLE, { id: idSelectedUser });
       component.handleUserAction(component.users$.value, actionEnable);
-      const userEnabled = component.users$.value.find(user => user.id === 2);
-      expect(userEnabled.enabled).toEqual(true);
+      const userEnabled = component.users$.value.find(user => user.id === idSelectedUser);
+      expect(userEnabled.enabled).toEqual(!selectedUser.enabled);
     }
   );
 
@@ -141,16 +144,15 @@ fdescribe("DashboardComponent", () => {
   );
 
   it(
-    "handleUserAction() should edit the selected user:  " + ACTION_CREATE_USER,
+    "handleUserAction() should edit the selected user:  " + ACTION_USER_UPDATE,
     () => {
-      const idUser = 1;
       const actionUpdate = new UserAction(ACTION_USER_UPDATE, {
-        id: idUser
+        id: idSelectedUser
       });
-      const newUser = { ...new User(), id: idUser };
+      const newUser = { ...new User(), id: idSelectedUser };
       component.handleUserAction(component.users$.value, actionUpdate, newUser);
       const modifiedUser = component.users$.value.find(
-        user => user.id === idUser
+        user => user.id === idSelectedUser
       );
       expect(newUser).toEqual(modifiedUser);
     }
@@ -162,7 +164,7 @@ fdescribe("DashboardComponent", () => {
     () => {
       const users = UsersMock;
       const anyAction = new UserAction(ANY_ACTION, {
-        id: 0
+        id: idSelectedUser
       });
       component.handleUserAction(component.users$.value, anyAction);
       expect(users).toEqual(component.users$.value);
@@ -196,18 +198,17 @@ fdescribe("DashboardComponent", () => {
   });
 
   it("handleSubmit() should set currentAction as ACTION_UPDATE_USER when the modal active is updateModal:  ", () => {
-    const idUser = 1;
     const actionUpdate = new UserAction(ACTION_USER_UPDATE, {
-      id: idUser
+      id: idSelectedUser
     });
 
     const updateModal = new Modal(TITLE_MODAL_UPDATE, TEXT_BUTTON_MODAL_UPDATE);
-    const newUser = { ...new User(), id: idUser };
+    const newUser = { ...new User(), id: idSelectedUser };
     component.currentAction$.next(actionUpdate);
     component.currentModal = updateModal;
     component.handleSubmit(newUser);
     const modifiedUser = component.users$.value.find(
-      user => user.id === idUser
+      user => user.id === idSelectedUser
     );
     expect(newUser).toEqual(modifiedUser);
   });
@@ -232,16 +233,5 @@ fdescribe("DashboardComponent", () => {
     expect(component.iFrame.nativeElement.contentWindow.postMessage).toHaveBeenCalledWith(
       new UserAction(ACTION_SEND_USERS_TO_IFRAME, UsersMock), environment.APP_DOMAIN);
   });
-
-  // sendDataToIframe(users):boolean {
-  //   if(!this.iFrame) return false;
-  //   if (this.iFrame) {
-  //      this.iFrame.nativeElement.contentWindow.postMessage(
-  //       new UserAction(ACTION_SEND_USERS_TO_IFRAME, users),
-  //       environment.APP_DOMAIN
-  //     );
-  //     return true;
-  //   }
-  // }
 
 });

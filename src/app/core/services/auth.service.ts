@@ -10,7 +10,6 @@ import {
   INVALID_EMAIL_ERROR__DISPLAY_MESSAGE,
   INVALID_EMAIL_ERROR_CODE,
   WRONG_PASSWORD_ERROR_CODE,
-  DEFAULT_ERROR__DISPLAY_MESSAGE,
   CREATE_USERS_ROUTE
 } from "src/app/constants";
 import { fromPromise } from "../functions/observable-from-promise";
@@ -25,14 +24,6 @@ export class AuthService {
   stateSession(): Observable<any> {
     return this._aFireAuth.authState;
   }
-
-  // register(email: string, pass: string): Observable<string | any> {
-  //   return fromPromise(
-  //     this._aFireAuth.auth.createUserWithEmailAndPassword(email, pass),
-  //     null,
-  //     this.handleErrorRegister
-  //   );
-  // }
 
   login({ email, password }: { email: string; password: string }):Observable<any> {
     return fromPromise(

@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AngularFireAuthMock } from 'src/mocks/angularfire-auth.mock';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let authService: AuthService

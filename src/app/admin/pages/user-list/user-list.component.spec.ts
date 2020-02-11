@@ -14,7 +14,7 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireAuthMock } from 'src/mocks/angularfire-auth.mock';
 
-fdescribe("UserListComponent", () => {
+describe("UserListComponent", () => {
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
 
