@@ -3,7 +3,8 @@
 Aplicación del **Code Challenge**
 
 Se escogió el framework **Angular** v8, se usó SMACSS para reutilizar clases de css y tener un mejor orden.
-Se integró el uso de `<iframe>` para ...
+Se integró el uso de window.postMessage()  para comunicar un `<iframe>` insertado en una página externa y mostrarlas al usuario como una sola página.
+Se uso programación reactiva y componentes desacoplados para simplificar el manejo del estado y comunicació entre componentes.
 
 ## Correr servidor localmente
 
