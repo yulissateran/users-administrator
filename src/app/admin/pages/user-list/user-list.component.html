@@ -1,6 +1,14 @@
-
 <div class="container-user-info ">
-  <div class="mt-3 container-user-info-size">
+  <div class="mt-3 container-user-info-size" *ngIf="(users$|async).length > 0 ">
     <app-user-card *ngFor="let user of users$ | async" [user]="user" (action)="sendAction($event)"></app-user-card>
+  </div>
+
+  <div class="mt-3 text-center container-user-info-size" *ngIf="(users$|async).length == 0">
+    <div class="mt-2">
+      <h3 style="color: #818181"><b>No hay usuarios</b></h3>
+    </div>
+    <div class="mt-2">
+      <img src="../../../../assets/img/error.svg" alt="error-icon" style="width: 5rem;">
+    </div>
   </div>
 </div>

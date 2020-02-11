@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubbmit(form: FormGroup) {
-    event.preventDefault();
     this.login(form)
   }
 
