@@ -8,8 +8,10 @@
       <button class="btn-primary" (click)="toggleShowModalCreate()">Crear usuario</button>
     </div>
     <!-- src="https://users-administrator.firebaseapp.com//admin/list-users" -->
-    <iframe #listUsers src="http://localhost:5000/admin/list-users" frameborder="0" class=" col-12"
-      style="height: 80vh;"></iframe>
+    <div class="col-12 w-100">
+      <iframe #listUsers src="http://localhost:5000/admin/list-users" frameborder="0" 
+      class="iframe"></iframe>
+    </div>
   </div>
 
 </section>
