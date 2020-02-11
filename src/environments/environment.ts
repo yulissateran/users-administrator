@@ -1,3 +1,5 @@
+import { LIST_USERS_ROUTE } from 'src/app/constants';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -13,8 +15,8 @@ export const environment = {
     messagingSenderId: "427198108126",
     appId: "1:427198108126:web:828e11f250fbc939984d4f"
   },
-  LIST_USERS_DOMAIN: 'http://localhost:5000',
-  CREATE_USERS_DOMAIN: 'http://localhost:5000',
+  APP_DOMAIN: 'http://localhost:5000',
+  IFRAME_ROUTE:'http://localhost:5000' + LIST_USERS_ROUTE ,
 };
 
 /*

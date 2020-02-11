@@ -3,7 +3,7 @@ import { AuthService } from "./auth.service";
 import { AngularFireAuthMock } from "../../../mocks/angularfire-auth.mock";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
-import { ErrorAuth } from "../models/error-auth";
+import { ErrorAuth } from "../clases/error-auth";
 
 import {
   LOGIN_ROUTE,

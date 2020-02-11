@@ -8,13 +8,11 @@
       <form [formGroup]="form" (submit)="validateSubmit()">
         <div class="form-control">
           <label for="username">Nombre de usuario <small class="text-error">*</small></label>
-          <input formControlName="userName" type="text" id="username" />
+          <input formControlName="username" type="text" id="username" />
         </div>
-        <div *ngIf="form.controls.userName.errors  && sentForm">
-          <p class="text-error mt-1 text-center" *ngIf="form.controls.password.errors.minlength">El nombre de usuario
-            debe tener
-            6 a más
-            caracteres</p>
+        <div *ngIf="form.controls.username.errors  && sentForm">
+          <p class="text-error mt-1 text-center" *ngIf="form.controls.password.errors.required">El nombre de usuario
+            es requerido</p>
         </div>
         <div class="form-control">
           <label for="password">Contraseña <small class="text-error">*</small></label>
@@ -32,36 +30,33 @@
         </div>
         <div class="form-control">
           <label for="fullname">Nombre Completo <small class="text-error">*</small></label>
-          <input formControlName="fullName" type="text" id="fullname" />
+          <input formControlName="fullname" type="text" id="fullname" />
         </div>
         <div class="form-control">
           <label for="email">Correo</label>
           <input formControlName="email" type="text" id="email" />
         </div>
         <div class="form-control">
-          <label for="adress">Dirección</label>
-          <input formControlName="adress" type="text" id="address" />
+          <label for="address">Dirección</label>
+          <input formControlName="address" type="text" id="address" />
         </div>
         <div class="align-items-center">
           <input formControlName="enabled" type="checkbox" id="enabled" class="pl-0 ml-0" />
           <label for="enabled" class="">Habilitado</label>
         </div>
-        <div *ngIf="form.invalid  && sentForm">
+        <div *ngIf="form.errors  && sentForm">
           <p class="text-error mt-1 text-center" *ngIf="form.errors.required">
             Completa los campos requeridos
           </p>
         </div>
         <div class="text-center mt-2">
-          <button class="button btn-primary" [disabled]="form.invalid">{{buttonText}}
+          <button class="button btn-primary"
+           >{{buttonText}}
           </button>
-          <!-- <app-button [class]="'button btn-primary'" [text]="'crear'">
-          </app-button> -->
         </div>
       </form>
     </div>
     <div class="modal-footer text-center">
-      <!-- <ng-content select="[footer]"></ng-content> -->
     </div>
   </div>
 </div>
-      <!-- <!-- <ng-content select="[content]"></ng-content> --> -->

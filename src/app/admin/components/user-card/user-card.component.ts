@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { UserAction } from "src/app/core/models/user-action";
+// import { UserAction } from "src/app/core/models/user-action";
 import {
   ACTION_USER_UPDATE,
   ACTION_USER_REMOVE,
   ACTION_USER_ENABLE
 } from "src/app/constants";
+import { UserAction } from 'src/app/core/clases/user-action';
 
 @Component({
   selector: "app-user-card",

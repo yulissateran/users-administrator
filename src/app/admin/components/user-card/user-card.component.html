@@ -20,11 +20,10 @@
       <span class="ml-1"><img width="20px" src="./assets/img/eye.svg" alt="eye"></span>
     </div>
     <div class="mt-1">Estado: {{user.enabled ? 'HABILITADO': 'INHABILITADO'}}</div>
-
     <div class="card-user-info-footer mt-1">
       <button class="btn-primary mx-1" type="button" (click)="update(user.id)">Editar</button>
       <button class="btn-primary mx-1" type="button" (click)="remove(user.id)">Eliminar</button>
-      <button class="btn-primary mx-1" type="button" (click)="enable(user.id)">Habilitar</button>
+      <button class="btn-primary mx-1" type="button" (click)="enable(user.id)">{{user.enabled ?  'Inhabilitar': 'Habilitar'}}</button>
     </div>
   </div>
 </div>

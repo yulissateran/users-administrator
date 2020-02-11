@@ -4,19 +4,19 @@ import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { CommonModule, APP_BASE_HREF } from "@angular/common";
 
 import { LoginComponent } from "./login.component";
-import { AuthService } from "./node_modules/src/app/core/services/auth.service";
+import { AuthService } from "src/app/core/services/auth.service";
 import {
   USER_ADMIN_EMAIL,
   USER_ADMIN_PASSWORD,
   WRONG_PASSWORD_ERROR_MESSAGE,
   WRONG_PASSWORD_ERROR_CODE,
   WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE
-} from "./node_modules/src/app/constants";
+} from "src/app/constants";
 
-import { ErrorAuth } from "./node_modules/src/app/core/clases/error-auth";
+import { ErrorAuth } from "src/app/core/clases/error-auth";
 import { throwError, of } from "rxjs";
-import { UserMock } from "./node_modules/src/mocks/user-mock";
-import { asyncError } from './node_modules/src/app/core/functions/async-error';
+import { UserMock } from "src/mocks/user-mock";
+import { asyncError } from 'src/app/core/functions/async-error';
 
 describe("LoginComponent", () => {
   let component: LoginComponent;

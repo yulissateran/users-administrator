@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../core/services/auth.service";
-import { CREATE_USERS_ROUTE, REGISTER_ROUTE } from "./node_modules/src/app/constants";
+import { CREATE_USERS_ROUTE, REGISTER_ROUTE } from "src/app/constants";
 import { ErrorAuth } from "../../core/clases/error-auth";
 import { map, catchError, tap } from "rxjs/operators";
 import { of, Subject, Subscription, Observable } from "rxjs";

@@ -14,7 +14,7 @@ import {
   CREATE_USERS_ROUTE
 } from "src/app/constants";
 import { fromPromise } from "../functions/observable-from-promise";
-import { ErrorAuth } from '../models/error-auth';
+import { ErrorAuth } from '../clases/error-auth';
 
 @Injectable({
   providedIn: "root"

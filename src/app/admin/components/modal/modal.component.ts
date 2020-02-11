@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { passwordValidator } from 'src/app/core/validators/password.validator';
-import { User } from 'src/app/core/models/user';
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { passwordValidator } from "src/app/admin/components/modal/password.validator";
+import { User } from "src/app/core/clases/user";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "app-modal",
@@ -10,19 +11,19 @@ import { User } from 'src/app/core/models/user';
 })
 export class ModalComponent implements OnInit {
   @Input() title: string;
+  @Input() buttonText: string;
+  @Input() user: BehaviorSubject<any>;
   @Output() close: EventEmitter<null> = new EventEmitter(null);
   form: FormGroup;
   sentForm: boolean = false;
-  @Output() customSubmit: EventEmitter<User> = new EventEmitter()
-  @Input() buttonText: string = 'button';
+  @Output() customSubmit: EventEmitter<User> = new EventEmitter();
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
-    console.log(this.form);
   }
 
   buildForm() {
     return this._fb.group({
-      userName: [null, Validators.required],
+      username: [null, Validators.required],
       password: [
         null,
         Validators.compose([
@@ -31,27 +32,30 @@ export class ModalComponent implements OnInit {
           passwordValidator
         ])
       ],
-      fullName: [
+      fullname: [
         null,
         Validators.compose([Validators.required, Validators.minLength(10)])
       ],
       enabled: [true, Validators.required],
       email: null,
-      adress: null
+      address: null
     });
   }
-  // userName:string;
-  // password: string,
-  // fullName: string,
-  // state: string;
-  // email?:string,
-  // adress?: string,
+
   ngOnInit() {
+    this.user.subscribe(user => {
+      if (user) {
+        this.form.patchValue(user);
+      } else {
+        this.form.reset();
+        this.form.patchValue(new User());
+      }
+    });
   }
 
   validateSubmit() {
-    console.log(this.form);
     this.sentForm = true;
-    if (this.form.valid) this.customSubmit.emit(this.form.value);
+    if (this.form.valid)
+      this.customSubmit.emit({ ...this.form.value, id: Date.now() });
   }
 }
