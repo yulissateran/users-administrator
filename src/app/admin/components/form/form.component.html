@@ -38,7 +38,7 @@
   <div class="align-items-center">
     <input formControlName="enabled" type="checkbox" id="enabled" class="pl-0 ml-0" />
     <label for="enabled" class="">Habilitado</label>
-  </div>{{form.errors| json}}
+  </div>
   <div *ngIf="form.invalid  && sentForm">
     <p class="text-error mt-1 text-center" *ngIf="form.errors.required">
       Completa los campos requeridos
