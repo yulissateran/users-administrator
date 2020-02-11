@@ -19,6 +19,7 @@ import { UserAction } from 'src/app/core/clases/user-action';
 import { Modal } from 'src/app/core/clases/modal';
 import { postMessageEvent } from 'src/app/core/clases/event-post-message';
 import { UsersMock } from 'src/mocks/users-mock';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,10 +41,19 @@ export class DashboardComponent implements OnInit {
 
   successAlert = false;
   msgSuccessAlert = '';
+  endPoint: any = '';
 
-  constructor() { }
+  constructor(
+    private _sanitizer: DomSanitizer
+  ) { }
+
   ngOnInit() {
+    this.sanitizerLink();
     this.users$.subscribe(users => this.sendDataToIframe(users));
+  }
+
+  sanitizerLink() {
+    this.endPoint = this._sanitizer.bypassSecurityTrustResourceUrl(`${environment.IFRAME_ROUTE}`)
   }
 
   @HostListener('window:message', ['$event'])
@@ -189,7 +199,7 @@ export class DashboardComponent implements OnInit {
     this.msgSuccessAlert = msg;
     setTimeout(() => {
       this.closeSuccessAlert();
-    }, 5000);
+    }, 3000);
   }
 
   closeSuccessAlert() {
