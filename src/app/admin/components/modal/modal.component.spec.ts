@@ -7,7 +7,8 @@ import { User } from 'src/app/core/clases/user';
 describe('ModalComponent', () => {
   let component: ModalComponent;
   let fixture: ComponentFixture<ModalComponent>;
-
+    let spyPatchValue :jasmine.Spy;
+   let spyReset :jasmine.Spy;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ModalComponent]
@@ -19,7 +20,8 @@ describe('ModalComponent', () => {
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     const user$ = { ...new User(), id: Date.now() }
-    component.user$ = new BehaviorSubject(user$)
+    component.user$ = new BehaviorSubject(user$);
+
     fixture.detectChanges();
   });
 
@@ -45,14 +47,12 @@ describe('ModalComponent', () => {
   //   });
   // }
   it('BuildForm has to be called to create component', () => {
-    component.form.patchValue = jasmine.createSpy();
-    component.form.reset = jasmine.createSpy();
-    // const user = {...new User(), id: Date.now()};
     component.setForm(component.user$)
-    // component.buildForm = jasmine.createSpy();
-    const spy = component.form.patchValue as jasmine.Spy;
-    // spy.calls.reset();
-    expect(spy.calls.count()).toBe(1);
-    expect(spy.calls.count()).toHaveBeenCalledWith(component.user$.value);
+    expect(component.form.value).toEqual(component.user$.value);
+  });
+  it('BuildForm has to be called to create component', () => {
+    component.user$.next(null);
+    component.setForm()
+    expect(component.form.value).toEqual(new User());
   });
 });
