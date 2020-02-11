@@ -67,7 +67,6 @@ export class AuthService {
   // }
 
   handleErrorLogin(error:ErrorAuth):string {
-    // console.log('ErrOR',error);
     let errorDisplayMessage;
     switch (error.code) {
       case NOT_USER_FOUND_ERROR_CODE:
@@ -79,8 +78,6 @@ export class AuthService {
       case INVALID_EMAIL_ERROR_CODE:
         errorDisplayMessage = INVALID_EMAIL_ERROR__DISPLAY_MESSAGE;
         break;
-        // default:
-        // errorDisplayMessage = DEFAULT_ERROR__DISPLAY_MESSAGE;
     }
     return errorDisplayMessage;
   }

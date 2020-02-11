@@ -16,7 +16,6 @@ export const fromPromise = (
         error => subscriptor.error(handleError ? handleError(error) : error)
       )
       .catch(error => {
-        console.log("ERROR PROMISE", error);
         return subscriptor.error(handleError ? handleError(error) : error);
       });
   });

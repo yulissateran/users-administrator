@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
 
   login(form:FormGroup):null | Subscription {
     this.sent = true;
-    console.log('CALLED SERVICE LOGIN', 'FROM IS valid:  ', form.valid);
     if (!this.isValidForm(form))  return null;
       this.errorAuth = undefined;
       return this.sendLogin(form.value).subscribe();

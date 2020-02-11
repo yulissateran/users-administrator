@@ -23,18 +23,14 @@ export class UserListComponent implements OnInit {
   }
 
   @HostListener("window:message", ["$event"])
-  onMessage(event) {
-    console.log("event charge users: ", event, event.data);
-    if (event.origin !== environment.APP_DOMAIN) return;
+  onMessage(event):null | void {
+    if (event.origin !== environment.APP_DOMAIN) return null;
     if (event.data.type === ACTION_SEND_USERS_TO_IFRAME) {
       this.users$.next(event.data.payload)
-      console.log("this.users$: ", this.users$.value);
     }
   }
 
   sendAction($event){
-    console.log('ACTION RECEVED and sent', $event);
     window.parent.postMessage($event, environment.APP_DOMAIN)
-    // this.
   }
 }

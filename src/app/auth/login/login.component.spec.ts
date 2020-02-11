@@ -15,10 +15,10 @@ import {
 
 import { ErrorAuth } from "src/app/core/clases/error-auth";
 import { throwError, of } from "rxjs";
-import { UserMock } from "src/mocks/user-mock";
+import { UserMock } from "src/mocks/user-auth-mock";
 import { asyncError } from 'src/app/core/functions/async-error';
 
-describe("LoginComponent", () => {
+fdescribe("LoginComponent", () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   const getAuthSpy = () => jasmine.createSpyObj("AuthService", ["login"]);
@@ -87,7 +87,7 @@ describe("LoginComponent", () => {
     const spy = authSpy.login as jasmine.Spy;
     spy.calls.reset();
     spy.and.returnValue(
-      throwError(new Error(WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE))
+      asyncError(WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE)
     );
     component.login(component.formLogin);
     expect(spy.calls.count()).toBe(1);

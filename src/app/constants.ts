@@ -33,3 +33,21 @@ export const ACTION_CREATE_USER:string = 'create';
 export const ACTION_SEND_USERS_TO_IFRAME:string = 'sendUsersToIframe';
 export const ACTION_LOADED_IFRAME:string = 'initList';
 
+
+export const ERROR_DOMAIN_MESSAGE:string = 'El dominio del mensaje recibido es ditinto al esperado';
+export const INCORRECT_DOMAIN_IFRAME:string = 'http://locaglhost:5000';
+
+
+export const TITLE_MODAL_CREATE:string = 'Crear Usuario';
+export const TEXT_BUTTON__MODAL_CREATE:string = 'Crear';
+export const TITLE_MODAL_UPDATE:string = 'Editar Usuario';
+export const TEXT_BUTTON_MODAL_UPDATE:string = 'Guardar';
+
+
+export const ANY_ACTION:string = 'ANY_ACTION';
+
+
+
+
+
+

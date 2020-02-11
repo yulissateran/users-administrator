@@ -1,5 +1,5 @@
-import { User } from './models/user'; 
-export const UserMock: User = {
+import { UserAuth } from './models/user-auth'; 
+export const UserMock: UserAuth = {
   user: {
     uid: "6N93dOEEEac72DEVAylFe8QE5ik2",
     displayName: null,

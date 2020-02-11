@@ -37,7 +37,7 @@ interface InterUser {
   createdAt: string;
 }
 
-export interface User {
+export interface UserAuth {
   user: InterUser;
   credential: string | null;
   additionalUserInfo: AdditionalUserInfo,

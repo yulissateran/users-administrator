@@ -1,10 +1,10 @@
-import { User } from "./models/user";
+import { UserAuth } from "./models/user-auth";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { UserMock } from "./user-mock";
+import { UserMock } from "./user-auth-mock";
 // import { ErrorAuth } from "src/app/core/clases/error-auth";
 
 export class AngularFireAuthMock {
-  public authState: BehaviorSubject<User | null> = new BehaviorSubject(null);
+  public authState: BehaviorSubject<UserAuth | null> = new BehaviorSubject(null);
   constructor() {  }
 
   public auth = {

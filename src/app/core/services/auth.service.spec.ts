@@ -21,7 +21,7 @@ import {
   CREATE_USERS_ROUTE
 } from "src/app/constants";
 
-describe("AuthService", () => {
+fdescribe("AuthService", () => {
   const getService = () => TestBed.get(AuthService);
   const getRouter = () => jasmine.createSpyObj("Router", ["navigate"]);
   let service: AuthService;

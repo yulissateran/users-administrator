@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { SharedModule } from '../shared.module';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AngularFireAuthMock } from 'src/mocks/angularfire-auth.mock';
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let authService: AuthService
@@ -12,9 +12,9 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HeaderComponent ],
-      imports: [SharedModule],
+      imports: [],
       providers: [
-        { provide: AuthService, useValue: authService },
+        { provide: AuthService, useValue: AngularFireAuthMock },
       ]
     })
     .compileComponents();

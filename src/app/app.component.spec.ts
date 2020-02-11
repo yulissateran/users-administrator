@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
@@ -21,7 +20,6 @@ describe('AppComponent', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthGuardModule,
-        SharedModule,
         CoreModule
       ],
       declarations: [

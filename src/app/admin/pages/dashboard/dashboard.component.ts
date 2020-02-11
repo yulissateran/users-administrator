@@ -8,19 +8,25 @@ import {
   AfterViewInit
 } from "@angular/core";
 import {
-  LIST_USERS_ROUTE,
+  ERROR_DOMAIN_MESSAGE,
   ACTION_USER_UPDATE,
   ACTION_USER_ENABLE,
   ACTION_USER_REMOVE,
   ACTION_SEND_USERS_TO_IFRAME,
   ACTION_LOADED_IFRAME,
-  ACTION_CREATE_USER
+  ACTION_CREATE_USER,
+  TITLE_MODAL_CREATE,
+  TITLE_MODAL_UPDATE,
+  TEXT_BUTTON__MODAL_CREATE,
+  TEXT_BUTTON_MODAL_UPDATE
 } from "src/app/constants";
 import { User } from "src/app/core/clases/user";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { UserAction } from "src/app/core/clases/user-action";
 import { Modal } from "src/app/core/clases/modal";
+import { postMessageEvent } from "src/app/core/clases/event-post-message";
+import { UsersMock } from 'src/mocks/users-mock';
 
 @Component({
   selector: "app-dashboard",
@@ -45,59 +51,44 @@ export class DashboardComponent implements OnInit {
   }
 
   @HostListener("window:message", ["$event"])
-  handleMessage({
-    origin,
-    data
-  }: {
-    origin: string;
-    data: UserAction;
-  }) {
-    if (origin !== environment.APP_DOMAIN) return;
+  handlePostMessage({ origin, data }: postMessageEvent) {
+    if (origin !== environment.APP_DOMAIN)
+      return new Error(ERROR_DOMAIN_MESSAGE);
     const action = data;
     const currentUsers = this.users$.value;
     this.currentAction$.next(action);
     if (action.type === ACTION_LOADED_IFRAME) {
       this.sendDataToIframe(currentUsers);
     } else if (action.type === ACTION_USER_UPDATE) {
-      this.toggleShowModalUpdate(this.getSelectedUser(currentUsers, action.payload.id));
+      this.toggleShowModalUpdate(
+        this.getSelectedUser(currentUsers, action.payload.id)
+      );
     } else {
       this.handleUserAction(currentUsers, action);
     }
   }
 
   getInitialUsers(): User[] {
-    return [
-      {
-        username: "yuli",
-        password: "*68Hyt",
-        fullname: "yuli teran",
-        enabled: true,
-        email: "cdc@jkasfhkjsf.com",
-        address: "",
-        id: 196676736554534234566666674564
-      },
-      {
-        username: "Anaflavia",
-        password: "*68Hcyt",
-        fullname: "Anaflavia",
-        enabled: true,
-        email: "cdc@Anaflavia.com",
-        address: "",
-        id: 5453747365556441963332
-      }
-    ];
+    return UsersMock
   }
+  
   getModals(): { [key: string]: Modal } {
     return {
-      create: new Modal("Crear Usuario", "Crear"),
-      update: new Modal("Editar Usuario", "Guardar")
+      create: new Modal(TITLE_MODAL_CREATE, TEXT_BUTTON__MODAL_CREATE),
+      update: new Modal(TITLE_MODAL_UPDATE, TEXT_BUTTON_MODAL_UPDATE)
     };
   }
-  sendDataToIframe(users) {
-    this.iFrame.nativeElement.contentWindow.postMessage(new UserAction(ACTION_SEND_USERS_TO_IFRAME,users),
-      environment.APP_DOMAIN);
-  }
 
+  sendDataToIframe(users):boolean {
+    if(!this.iFrame) return false;
+    if (this.iFrame) {
+       this.iFrame.nativeElement.contentWindow.postMessage(
+        new UserAction(ACTION_SEND_USERS_TO_IFRAME, users),
+        environment.APP_DOMAIN
+      );
+      return true;
+    }
+  }
 
   handleUserAction(users, action: UserAction, fromModalUser?) {
     let modifiedUsers = users;
@@ -147,22 +138,21 @@ export class DashboardComponent implements OnInit {
     switch (this.currentModal.title) {
       case this.modals.create.title:
         this.currentAction$.next(new UserAction(ACTION_CREATE_USER, user));
-        this.handleUserAction(this.users$.value,this.currentAction$.value, user);
+        this.handleUserAction(
+          this.users$.value,
+          this.currentAction$.value,
+          user
+        );
         break;
       case this.modals.update.title:
-        this.handleUserAction(this.users$.value, this.currentAction$.value, user);
+        this.handleUserAction(
+          this.users$.value,
+          this.currentAction$.value,
+          user
+        );
         break;
     }
   }
-
-
-
-
-
-
-
-
-
 
   enableUser(users, id) {
     return users.map(user => {

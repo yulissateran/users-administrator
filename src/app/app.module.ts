@@ -8,12 +8,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
-import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,9 +21,8 @@ import { AdminModule } from './admin/admin.module';
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
     AdminModule,
-    SharedModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

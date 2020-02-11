@@ -6,6 +6,7 @@ import {
   ACTION_USER_ENABLE
 } from "src/app/constants";
 import { UserAction } from 'src/app/core/clases/user-action';
+import { User } from 'src/app/core/clases/user';
 
 @Component({
   selector: "app-user-card",
@@ -13,7 +14,7 @@ import { UserAction } from 'src/app/core/clases/user-action';
   styleUrls: ["./user-card.component.scss"]
 })
 export class UserCardComponent implements OnInit {
-  @Input() user: any; //user
+  @Input() user: User; 
   @Output() action: EventEmitter<UserAction> = new EventEmitter();
   isOpen: boolean = false;
   modalActive:boolean =false;
@@ -22,33 +23,21 @@ export class UserCardComponent implements OnInit {
   ngOnInit() {}
 
   update(id): void {
-    const actionUpdate: UserAction = {
-      type: ACTION_USER_UPDATE,
-      payload: { id }
-    };
+    const actionUpdate: UserAction =  new UserAction(ACTION_USER_UPDATE, { id })
     this.action.emit(actionUpdate);
   }
 
   remove(id): void {
-    const actionRemove: UserAction = {
-      type: ACTION_USER_REMOVE,
-      payload: { id }
-    };
+    const actionRemove: UserAction =  new UserAction(ACTION_USER_REMOVE, { id })
     this.action.emit(actionRemove);
   }
 
   enable(id): void {
-    const actionEnable: UserAction = {
-      type: ACTION_USER_ENABLE,
-      payload: { id }
-    };
+    const actionEnable: UserAction = new UserAction( ACTION_USER_ENABLE, { id });
     this.action.emit(actionEnable);
   }
 
   toggleShowMore(): void {
     this.isOpen = !this.isOpen;
-  }
-  toggleShowModal(){
-    this.modalActive = !this.modalActive;
   }
 }
