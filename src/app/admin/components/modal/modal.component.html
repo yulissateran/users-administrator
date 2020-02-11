@@ -17,8 +17,14 @@
         </div>
 
         <div class="form-control">
-          <label for="password">Contraseña<small class="text-error">*</small></label>
-          <input formControlName="password" type="password" id="password" />
+          <div class="row align-items-center">
+            <div class="col-11">
+              <label for="password">Contraseña<small class="text-error">*</small></label>
+              <input formControlName="password" type="{{typePassword ? '' :'password'}}" id="password" />
+            </div>
+            <div class="col-1 text-right mt-1"> <img width="20px" (click)="showPass()"
+                src="{{typePassword ?'./assets/img/eye-hidden.svg': './assets/img/eye.svg'}}" alt="eye"> </div>
+          </div>
           <div *ngIf="form.controls.password.errors  && sentForm">
             <p class="text-error text-error-form" *ngIf="form.controls.password.errors.minlength">La contraseña
               debe tener al menos 6 caracteres</p>

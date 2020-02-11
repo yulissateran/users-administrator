@@ -14,29 +14,30 @@ import { User } from 'src/app/core/clases/user';
   styleUrls: ["./user-card.component.scss"]
 })
 export class UserCardComponent implements OnInit {
-  @Input() user: User; 
+  @Input() user: User;
   @Output() action: EventEmitter<UserAction> = new EventEmitter();
 
   isOpen: boolean = false;
-  modalActive:boolean =false;
+  modalActive: boolean = false;
   removeSelected = false;
+  typePassword = false;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   update(id): void {
-    const actionUpdate: UserAction =  new UserAction(ACTION_USER_UPDATE, { id })
+    const actionUpdate: UserAction = new UserAction(ACTION_USER_UPDATE, { id })
     this.action.emit(actionUpdate);
   }
 
   remove(id): void {
-    const actionRemove: UserAction =  new UserAction(ACTION_USER_REMOVE, { id })
+    const actionRemove: UserAction = new UserAction(ACTION_USER_REMOVE, { id })
     this.action.emit(actionRemove);
   }
 
   enable(id): void {
-    const actionEnable: UserAction = new UserAction( ACTION_USER_ENABLE, { id });
+    const actionEnable: UserAction = new UserAction(ACTION_USER_ENABLE, { id });
     this.action.emit(actionEnable);
   }
 
@@ -46,5 +47,9 @@ export class UserCardComponent implements OnInit {
 
   showConfirmRemoveUser(value) {
     this.removeSelected = value;
+  }
+
+  showPass() {
+    this.typePassword = !this.typePassword;
   }
 }

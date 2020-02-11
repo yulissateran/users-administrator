@@ -18,6 +18,7 @@ export class ModalComponent implements OnInit {
   @Output() customSubmit: EventEmitter<User> = new EventEmitter();
   form: FormGroup;
   sentForm: boolean;
+  typePassword = false;
 
   constructor(private _fb: FormBuilder) {
     this.form = this.buildForm();
@@ -63,5 +64,9 @@ export class ModalComponent implements OnInit {
     this.sentForm = true;
     if (this.form.valid)
       this.customSubmit.emit({ ...this.form.value, id: Date.now() });
+  }
+
+  showPass() {
+    this.typePassword = !this.typePassword;
   }
 }
