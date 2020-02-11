@@ -1,9 +1,18 @@
 # UsersAdministrator
 
-Aplicación del **Code Challenge**
+###Aplicación del **Code Challenge**
 
-Se escogió el framework **Angular** v8, se usó SMACSS para reutilizar clases de css y tener un mejor orden.
-Se integró el uso de `<iframe>` para ...
+- Se escogió el framework **Angular** v8.
+Para los estilos se usó vanilla CSS paara mayor flexibilidad en el diseño.
+
+- Como arquitectura de CSS se implementó SMACSS para reutilizar clases de CSS, tener un mejor orden y aumentar la escalabilidad al crear módulos de estilos.
+
+- Se integró el uso de `<iframe>` y el método **postMessage()** de la API del navegador **Window** para comunicar dos páginas distintas una  insertada dentro de otra  y mostrarlas al usuario como una sola página.
+
+- Se uso **programación reactiva** y componentes desacoplados para simplificar el manejo del estado y composición de la interfaz de usuario.
+
+
+- Se uso FirebaseAuth para la autenticación(login) y se creó un mock de la clase para los tests;
 
 ## Correr servidor localmente
 
