@@ -13,7 +13,7 @@ export const USER_ADMIN_PASSWORD:string = 'YulissaT*@';
 //LOGIN ERRORS 
 export const NOT_USER_FOUND_ERROR_CODE:string = 'auth/user-not-found';
 export const NOT_USER_FOUND_ERROR_MESSAGE:string = 'There is no user record corresponding to this identifier. The user may have been deleted.';
-export const NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE:string = 'El email ingresado no se encuentra registrado';
+export const NOT_USER_FOUND_ERROR_DISPLAY_MESSAGE:string = 'El correo electrónico ingresado no se encuentra registrado';
 
 export const WRONG_PASSWORD_ERROR_CODE:string = 'auth/wrong-password';
 export const WRONG_PASSWORD_ERROR_MESSAGE:string = 'The password is invalid or the user does not have a password.';
@@ -21,9 +21,9 @@ export const WRONG_PASSWORD_ERROR_DISPLAY_MESSAGE:string = 'La contraseña ingre
 
 export const INVALID_EMAIL_ERROR_CODE:string = 'auth/invalid-email';
 export const INVALID_EMAIL_ERROR_MESSAGE:string = 'The email address is badly formatted.';
-export const INVALID_EMAIL_ERROR__DISPLAY_MESSAGE:string = 'El correo ingresado es incorrecto';
+export const INVALID_EMAIL_ERROR__DISPLAY_MESSAGE:string = 'El correo electrónico ingresado es incorrecto';
 
-export const DEFAULT_ERROR__DISPLAY_MESSAGE:string = 'Sucedió un error, por favor intente de nuevo más tarde';
+export const DEFAULT_ERROR__DISPLAY_MESSAGE:string = 'Sucedió un error, por favor intente nuevamente más tarde';
 
 export const ACTION_USER_UPDATE:string = 'update';
 export const ACTION_USER_REMOVE:string = 'remove';
@@ -34,7 +34,7 @@ export const ACTION_SEND_USERS_TO_IFRAME:string = 'sendUsersToIframe';
 export const ACTION_LOADED_IFRAME:string = 'initList';
 
 
-export const ERROR_DOMAIN_MESSAGE:string = 'El dominio del mensaje recibido es ditinto al esperado';
+export const ERROR_DOMAIN_MESSAGE:string = 'El dominio del mensaje recibido es diferente al esperado';
 export const INCORRECT_DOMAIN_IFRAME:string = 'http://locaglhost:5000';
 
 
