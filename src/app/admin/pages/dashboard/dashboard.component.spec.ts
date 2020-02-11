@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { ModalComponent } from '../../components/modal/modal.component';
-import { FormComponent } from '../../components/form/form.component';
 
 fdescribe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -9,7 +8,7 @@ fdescribe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent, ModalComponent, FormComponent ], 
+      declarations: [ DashboardComponent, ModalComponent ], 
     })
     .compileComponents();
   }));
