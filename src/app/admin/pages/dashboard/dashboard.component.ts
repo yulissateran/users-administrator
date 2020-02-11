@@ -27,7 +27,7 @@ import { UserAction } from "src/app/core/clases/user-action";
 import { Modal } from "src/app/core/clases/modal";
 import { postMessageEvent } from "src/app/core/clases/event-post-message";
 import { UsersMock } from 'src/mocks/users-mock';
-
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -41,37 +41,42 @@ export class DashboardComponent implements OnInit {
   );
   modals: { [key: string]: Modal } = this.getModals();
   currentModal: Modal;
-  iframeURL: string = environment.IFRAME_ROUTE;
+  iframeURL: string  | SafeResourceUrl = environment.IFRAME_ROUTE;
   isActiveModal: boolean = false;
   @ViewChild("listUsers", { static: true }) iFrame: ElementRef;
 
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.users$.subscribe(users => this.sendDataToIframe(users));
+    this.iframeURL = this.getSantizeUrl(this.iframeURL);
   }
 
   @HostListener("window:message", ["$event"])
   handlePostMessage({ origin, data }: postMessageEvent) {
-    if (origin !== environment.APP_DOMAIN)
-      return new Error(ERROR_DOMAIN_MESSAGE);
     const action = data;
-    const currentUsers = this.users$.value;
-    this.currentAction$.next(action);
-    if (action.type === ACTION_LOADED_IFRAME) {
-      this.sendDataToIframe(currentUsers);
-    } else if (action.type === ACTION_USER_UPDATE) {
-      this.toggleShowModalUpdate(
-        this.getSelectedUser(currentUsers, action.payload.id)
-      );
-    } else {
-      this.handleUserAction(currentUsers, action);
+    if (origin !== environment.APP_DOMAIN) { return new Error(ERROR_DOMAIN_MESSAGE); }
+    if (action) {
+      const currentUsers = this.users$.value;
+      this.currentAction$.next(action);
+      if (action.type === ACTION_LOADED_IFRAME) {
+        this.sendDataToIframe(currentUsers);
+      } else if (action.type === ACTION_USER_UPDATE) {
+        this.toggleShowModalUpdate(
+          this.getSelectedUser(currentUsers, action.payload.id)
+        );
+      } else {
+        this.handleUserAction(currentUsers, action);
+      }
     }
-  }
 
+  }
+  public getSantizeUrl(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
   getInitialUsers(): User[] {
     return UsersMock
   }
-  
+
   getModals(): { [key: string]: Modal } {
     return {
       create: new Modal(TITLE_MODAL_CREATE, TEXT_BUTTON__MODAL_CREATE),
@@ -79,10 +84,10 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  sendDataToIframe(users):boolean {
-    if(!this.iFrame) return false;
+  sendDataToIframe(users): boolean {
+    if (!this.iFrame) return false;
     if (this.iFrame) {
-       this.iFrame.nativeElement.contentWindow.postMessage(
+      this.iFrame.nativeElement.contentWindow.postMessage(
         new UserAction(ACTION_SEND_USERS_TO_IFRAME, users),
         environment.APP_DOMAIN
       );
@@ -91,8 +96,8 @@ export class DashboardComponent implements OnInit {
   }
 
   handleUserAction(users, action: UserAction, fromModalUser?) {
+    console.log('users',users, 'action:', action ,'fromM', fromModalUser)
     let modifiedUsers = users;
-    const { id } = action.payload;
     switch (action.type) {
       case ACTION_USER_UPDATE:
         modifiedUsers = this.updateUser(
@@ -102,10 +107,10 @@ export class DashboardComponent implements OnInit {
         );
         break;
       case ACTION_USER_REMOVE:
-        modifiedUsers = this.removeUser(users, id);
+        modifiedUsers = this.removeUser(users, action.payload.id);
         break;
       case ACTION_USER_ENABLE:
-        modifiedUsers = this.enableUser(users, id);
+        modifiedUsers = this.enableUser(users, action.payload.id);
         break;
       case ACTION_CREATE_USER:
         modifiedUsers = this.addUser(users, fromModalUser);
