@@ -8,3 +8,16 @@
   border-radius: 10rem;
   font-size: 1rem;
 }
+
+.btn-primary:disabled {
+  background-color: #71adab;
+}
+
+.btn-warning {
+  color: white;
+  background-color: $color-red;
+  padding: 0.5rem 0;
+  width: 10em;
+  border-radius: 10rem;
+  font-size: 1rem;
+}

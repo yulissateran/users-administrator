@@ -5,56 +5,64 @@
 @import 'src/scss/module/card/card-user-info.scss';
 @import 'src/scss/module/form/forms.scss';
 @import 'src/scss/module/button/button.scss';
+@import 'src/scss/module/alert/success-alert.scss';
 
 .iframe {
   height: 67.5vh;
 }
 
+@media (min-width: 550px) {
+  .iframe {
+    height: 67.5vh;
+    width: 32.5em;
+  }
+}
+
 @media (min-width: 600px) {
   .iframe {
     height: 67.5vh;
-    width: 40em;
+    width: 35em;
   }
 }
 
 @media (min-width: 700px) {
   .iframe {
-    height: 67.5vh;
-    width: 45em;
+    height: 72vh;
+    width: 40em;
   }
 }
 
 @media (min-width: 800px) {
   .iframe {
-    height: 67.5vh;
+    height: 77.5vh;
     width: 50em;
   }
 }
 
 @media (min-width: 900px) {
   .iframe {
-    height: 67.5vh;
+    height: 80vh;
     width: 55rem;
   }
 }
 
 @media (min-width: 1000px) {
   .iframe {
-    height: 67.5vh;
+    height: 80vh;
     width: 60rem;
   }
 }
 
 @media (min-width: 1100px) {
   .iframe {
-    height: 67.5vh;
+    height: 80vh;
     width: 67.5rem;
   }
 }
 
 @media (min-width: 1200px) {
   .iframe {
-    height: 67.5vh;
+    height: 80vh;
     width: 70rem;
   }
 }

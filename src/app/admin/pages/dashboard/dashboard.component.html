@@ -1,4 +1,10 @@
 <section class="container">
+
+  <div class="alert m-1" *ngIf="successAlert">
+    <span class="closebtn" (click)="closeSuccessAlert()">&times;</span>
+    {{msgSuccessAlert}}
+  </div>
+
   <div class="row mt-2 text-center align-items-center">
     <div class="col-6">
       <h2 class="">Lista de usuarios</h2>
@@ -7,20 +13,14 @@
     <div class="col-6">
       <button class="btn-primary" (click)="toggleShowModalCreate()">Crear usuario</button>
     </div>
-    <!-- src="https://users-administrator.firebaseapp.com//admin/list-users" -->
     <div class="col-12 w-100">
-      <iframe #listUsers src="https://users-administrator.firebaseapp.com/admin/list-users" frameborder="0" 
+      <iframe #listUsers [src]="endPoint" frameborder="0" 
       class="iframe"></iframe>
     </div>
   </div>
 
 </section>
 
-<app-modal *ngIf="isActiveModal" 
-(close)="toggleShowModal()"
-(customSubmit)="handleSubmit($event)"
- [title]="currentModal.title"
- [buttonText]="currentModal.buttonText"
- [user$]="currentUser$"
- >
+<app-modal *ngIf="isActiveModal" (close)="toggleShowModal()" (customSubmit)="handleSubmit($event)"
+  [title]="currentModal.title" [buttonText]="currentModal.buttonText" [user$]="currentUser$">
 </app-modal>

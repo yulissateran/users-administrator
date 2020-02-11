@@ -16,8 +16,11 @@ import { User } from 'src/app/core/clases/user';
 export class UserCardComponent implements OnInit {
   @Input() user: User; 
   @Output() action: EventEmitter<UserAction> = new EventEmitter();
+
   isOpen: boolean = false;
   modalActive:boolean =false;
+  removeSelected = false;
+
   constructor() {}
 
   ngOnInit() {}
@@ -39,5 +42,9 @@ export class UserCardComponent implements OnInit {
 
   toggleShowMore(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  showConfirmRemoveUser(value) {
+    this.removeSelected = value;
   }
 }
